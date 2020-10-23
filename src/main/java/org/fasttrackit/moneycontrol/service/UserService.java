@@ -2,6 +2,7 @@ package org.fasttrackit.moneycontrol.service;
 
 import org.fasttrackit.moneycontrol.domain.User;
 import org.fasttrackit.moneycontrol.persistance.UserRepository;
+import org.fasttrackit.moneycontrol.transfer.SaveUserRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-public User createUser() {
+public User createUser(SaveUserRequest request) {
     LOGGER.info("Creating User: {}" , request);
 
     User user = new User();
