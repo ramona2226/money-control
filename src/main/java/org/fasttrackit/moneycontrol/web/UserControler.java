@@ -2,8 +2,11 @@ package org.fasttrackit.moneycontrol.web;
 
 import org.fasttrackit.moneycontrol.domain.User;
 import org.fasttrackit.moneycontrol.service.UserService;
+import org.fasttrackit.moneycontrol.transfer.GetUsersRequest;
 import org.fasttrackit.moneycontrol.transfer.SaveUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +28,7 @@ public class UserControler {
 
 
     @PostMapping
-    public ResponseEntity<User> creayeUser(@RequestBody @Valid SaveUserRequest request) {
+    public ResponseEntity<User> createUser(@RequestBody @Valid SaveUserRequest request) {
         User user = userService.createUser(request);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
 
@@ -40,6 +43,12 @@ public class UserControler {
         //sau
         return  ResponseEntity.ok(user);
     }
+@GetMapping
+     public ResponseEntity<Page<User>> getUsers(GetUsersRequest request, Pageable pageable){
+
+    Page<User> users = userService.getUsers(request, pageable);
+    return ResponseEntity.ok(users);
+}
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable long id, @RequestBody @Valid SaveUserRequest request) {
