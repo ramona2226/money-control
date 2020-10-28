@@ -1,6 +1,8 @@
 package org.fasttrackit.moneycontrol.service;
 
 import org.fasttrackit.moneycontrol.domain.Budget;
+import org.fasttrackit.moneycontrol.domain.Transaction;
+import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.BudgetRepository;
 import org.fasttrackit.moneycontrol.transfer.SaveBudgetRequest;
 import org.slf4j.Logger;
@@ -12,43 +14,56 @@ import org.springframework.stereotype.Service;
 @Service
 public class BudgetService {
 
-   private static final Logger LOGGER = LoggerFactory.getLogger(BudgetService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BudgetService.class);
 
-   // trebuie sa ii fac si un inversion of Control?
-   public final BudgetRepository budgetRepository;
+    public final BudgetRepository budgetRepository;
+
+    @Autowired
+    public BudgetService(BudgetRepository budgetRepository) {
+        this.budgetRepository = budgetRepository;
+    }
+
+    public Budget createBudget(SaveBudgetRequest request) {
+
+        LOGGER.info("Creating Budget : {}", request);
+
+        Budget budget = new Budget();
+      budgetRepository.save(budget);
+        return budget;
+    }
 
 
-   @Autowired
-   public BudgetService(BudgetRepository budgetRepository) {
-      this.budgetRepository = budgetRepository;
+        public Budget getBudget(long id) {
+            LOGGER.info("Retriving available balance{}", id);
+//aici am un wearnind  in care imi spune ca "budget" is redundat. la  ce anume se refera oare?
+            Budget budget = budgetRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Budget" + id + "does not exist"));
+            return budget;
+
+
+        }
+            public void updateBudget(long id, Transaction lastTransaction, SaveBudgetRequest request) {
+      double newbalance;
+
+       Budget budget = getBudget(id);
+        double existingAvailableBalance = budget.getAvailableBalance();
+        //BeanUtils.copyProperties(request, existingAvailableBalance);
+
+                newbalance = existingAvailableBalance + lastTransaction.getAmount();
+
+       budget.setAvailableBalance(newbalance);
+
+           // return budgetRepository.save(budget);
    }
 
 
-   public Budget createBudget(SaveBudgetRequest request) {
-      Budget mybudget = new Budget();
-      mybudget.setAvailableBalance(request.getMybudget());
-      mybudget.setValuteName(request.getValuteName());
 
-// o sa implementez  sa fie interfetele crudRepository si sa dau adnnotarea @NoRepositoryBean dar nu mai stiu
-      // exact cum asa ca o sa caut pe video
-   return BudgetRepository.save(mybudget);
+    public void deleteBudget(long id) {
+        LOGGER.info("Deleting user {} ", id);
+        budgetRepository.deleteById(id);
+    }
+
+
+
 
 }
-
-// o sa creez si metoda read, and detele si apoi da le adaug in test.
-
-
-public double updateBuget(long id, double availableBudget, double incomeMoney ) {
-
-
-   double newBudget = availableBudget + incomeMoney;
-
-
-    return newBudget;
-}
-}
-// aici am facut o metoda de update in care  primeste parametrul valoarea de adunat la bugetul existent,
-//dar cred ca imi trebuie si un update ca atunci cand fac payment. o  operatie de scadere. si ma gandesc sa
-// adaoug oare in metoda creata mai sus si parametrul double payment si sa  pun o conditie ca daca sa adauga bani
-// sa se faca operatia de adunare, iar daca se face plata sa se execute operatia de scadere.
-

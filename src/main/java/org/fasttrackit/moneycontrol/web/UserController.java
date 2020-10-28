@@ -17,12 +17,12 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/users")
 
-public class UserControler {
+public class UserController {
 
     private final  UserService userService;
 
     @Autowired
-    public UserControler(UserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
@@ -30,17 +30,14 @@ public class UserControler {
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody @Valid SaveUserRequest request) {
         User user = userService.createUser(request);
+
         return new ResponseEntity<>(user, HttpStatus.CREATED);
 
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable long id) {
         User user = userService.getUser(id);
 
-
-        // return new ResponseEntity<>(user, HttpStatus.OK);
-        //sau
         return  ResponseEntity.ok(user);
     }
 @GetMapping
@@ -56,14 +53,10 @@ public class UserControler {
         return  ResponseEntity.ok(user);
 
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-
     }
-
-
 }

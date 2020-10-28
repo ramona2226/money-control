@@ -2,6 +2,8 @@ package org.fasttrackit.moneycontrol.web;
 
 
 import org.fasttrackit.moneycontrol.domain.Budget;
+import org.fasttrackit.moneycontrol.domain.Transaction;
+import org.fasttrackit.moneycontrol.domain.User;
 import org.fasttrackit.moneycontrol.service.BudgetService;
 import org.fasttrackit.moneycontrol.transfer.SaveBudgetRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +16,13 @@ import javax.validation.Valid;
 
 @CrossOrigin
 @RestController
-// as pune bugdet aici la singular deoarece am un singur buget a unui user, sau pun la plural ca userul are
-// buget si in lire si in euro sau  pt ca are si partea aceea cu saving cards si in lei asta daca adaug complexitate
-
-// sau dc trebuie sa pun la plural budgets? oare de ce o sa fie mai multe bugete a mai multor useri?
 @RequestMapping("bugets")
-public class BudgetControler {
+public class BudgetController {
 
     private final BudgetService budgetService;
 
 @Autowired
-    public BudgetControler(BudgetService budgetService) {
+    public BudgetController(BudgetService budgetService) {
         this.budgetService = budgetService;
     }
 
@@ -34,7 +32,24 @@ public class BudgetControler {
     return new ResponseEntity<>(budget, HttpStatus.CREATED);
 
     }
+    @GetMapping("/{id}")
+public ResponseEntity<Budget> getBudget(@PathVariable long id) {
+        Budget budget = budgetService.getBudget(id);
+        return  ResponseEntity.ok(budget);
+    }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Budget> updateBudget(@PathVariable long id, Transaction lastTransaction, @RequestBody  @Valid SaveBudgetRequest request) {
+    Budget budget = budgetService.updateBudget(id, request, lastTransaction );
+
+    return ResponseEntity.ok(budget);
+}
+@DeleteMapping("/{id}")
+public ResponseEntity<Budget> deleteBudget(@PathVariable long id) {
+budgetService.deleteBudget(id);
+
+return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+}
 
 
 }

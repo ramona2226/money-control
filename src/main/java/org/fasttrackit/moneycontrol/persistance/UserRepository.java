@@ -15,8 +15,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     //dintr-o metoda custom query
     //JPQL JAVA PERSISTANCE QUERY LEVEL
-    @Query(value = "SELECT user FROM User user" +
-            " Where (:partialFirstName IS NULL OR user.firstName LIKE %:partialFirstName%) " +
+             @Query(value = "SELECT user FROM User user" +
+             " Where (:partialFirstName IS NULL OR user.firstName LIKE %:partialFirstName%) " +
             " AND (:partialLastName IS NULL OR user.lastName LIKE %:partialFirstName%)")
     Page<User> findByOptionalCriteria(String partialFirstName, String partialLastName, Pageable pageable);
 }

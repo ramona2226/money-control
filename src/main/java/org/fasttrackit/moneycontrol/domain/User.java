@@ -16,6 +16,9 @@ public class User {
     @NotNull
     private String firstName;
 
+    @NotNull
+    private String lastName;
+
     public long getId() {
         return id;
     }
@@ -40,8 +43,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    @NotNull
-    private String lastName;
+
 
 
     @Override

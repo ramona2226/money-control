@@ -1,9 +1,8 @@
 package org.fasttrackit.moneycontrol.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -12,6 +11,7 @@ public class Budget {
 
 
     @Id
+    @GeneratedValue
     private long id;
 
     @OneToOne
@@ -19,17 +19,12 @@ public class Budget {
     private User user;
 
 
+    private double existingAvailableBalance;
+
+@NotNull
     private  String valuteName;
 
-    private double amount;
 
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
 
     public String getValuteName() {
         return valuteName;
@@ -57,15 +52,13 @@ public class Budget {
     }
 
     public double getAvailableBalance() {
-        return availableBalance;
+        return existingAvailableBalance;
     }
 
     public void setAvailableBalance(double availableBalance) {
-        this.availableBalance = availableBalance;
+        this.existingAvailableBalance = availableBalance;
     }
 
-    // aici imi trebuie oare ceva adnnotatie?
-    private double availableBalance;
 
     @Override
     public String toString() {
@@ -73,8 +66,7 @@ public class Budget {
                 "id=" + id +
                 ", user=" + user +
                 ", valuteName='" + valuteName + '\'' +
-                ", amount=" + amount +
-                ", availableBalance=" + availableBalance +
+                ", availableBalance=" + existingAvailableBalance +
                 '}';
     }
 }
