@@ -47,18 +47,6 @@ public class UserService {
         LOGGER.info("Retrieving user{}", id);
 
 
-        //optional example
-////          Optional<User> userOptional = userRepository.findById(id);
-//          if(userOptional.isPresent()) {
-//              return userOptional.get();
-//          }else {
-//              throw new ResourceNotFoundException("User " + id + "does not exist");
-
-
-
-
-        //    }
-
         return userRepository.findById(id)
                 //Lambda expression
                 .orElseThrow(()-> new ResourceNotFoundException(("User " + id + "does not exist")));
@@ -66,18 +54,6 @@ public class UserService {
 
     public Page<User> getUsers(GetUsersRequest request, Pageable pageable) {
         LOGGER.info("Retriving  users");
-
-//        if (request.getPartialFirstName() !=null && request.getPartialLastName() != null) {
-//            return userRepository.findByFirstNameContainsAndLastNameContains
-//                    (request.getPartialFirstName(), request.getPartialLastName(), pageable);
-//        }  else if (request.getPartialFirstName() != null) {
-//            return userRepository.findByFirstNameContains(request.getPartialFirstName(), pageable);
-//        }else if (request.getPartialLastName() != null) {
-//            return userRepository.findByLastNameContains(request.getPartialLastName(), pageable);
-//        }
-//
-//        return userRepository.findAll(pageable);
-//    }
 
 
         return userRepository.findByOptionalCriteria(

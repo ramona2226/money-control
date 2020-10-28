@@ -1,6 +1,5 @@
 package org.fasttrackit.moneycontrol.transfer;
 
-import org.fasttrackit.moneycontrol.domain.Budget;
 
 import java.time.LocalDate;
 

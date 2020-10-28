@@ -1,13 +1,14 @@
 package org.fasttrackit.moneycontrol.domain;
 
-import javax.persistence.Id;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
+@Entity
 public class Transaction {
 
     @Id
+    @GeneratedValue
     private long id;
 
     @OneToOne
@@ -20,6 +21,9 @@ public class Transaction {
 
 @NotNull
     private double amount;
+
+@NotNull
+private LocalDate date;
 
 
 

@@ -45,9 +45,6 @@ public class TransactionService {
        return transaction;
     }
 
-    // nu stiu oare are sens sa pun si un update o metoda update, gen in viata reala
-    // odata ce ai facut o plata nu poti sa o schimbi.  insa   metodele CRUD  cred ca trebuie implementate toate.
-
 
     public void deleteTransaction(long id) {
         LOGGER.info("Delete transaction{}", id);

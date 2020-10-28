@@ -3,7 +3,6 @@ package org.fasttrackit.moneycontrol.web;
 
 import org.fasttrackit.moneycontrol.domain.Budget;
 import org.fasttrackit.moneycontrol.domain.Transaction;
-import org.fasttrackit.moneycontrol.domain.User;
 import org.fasttrackit.moneycontrol.service.BudgetService;
 import org.fasttrackit.moneycontrol.transfer.SaveBudgetRequest;
 import org.springframework.beans.factory.annotation.Autowired;

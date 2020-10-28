@@ -44,7 +44,7 @@ public class BudgetService {
 
         }
 
-        //am pus void pana rezolv problema cu db
+
             public Budget updateBudget(long id, Transaction lastTransaction, SaveBudgetRequest request) {
       double newbalance;
 
