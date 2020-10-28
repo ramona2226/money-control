@@ -7,6 +7,7 @@ import org.fasttrackit.moneycontrol.persistance.BudgetRepository;
 import org.fasttrackit.moneycontrol.transfer.SaveBudgetRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,18 +43,21 @@ public class BudgetService {
 
 
         }
-            public void updateBudget(long id, Transaction lastTransaction, SaveBudgetRequest request) {
+
+        //am pus void pana rezolv problema cu db
+            public Budget updateBudget(long id, Transaction lastTransaction, SaveBudgetRequest request) {
       double newbalance;
 
        Budget budget = getBudget(id);
         double existingAvailableBalance = budget.getAvailableBalance();
-        //BeanUtils.copyProperties(request, existingAvailableBalance);
+        BeanUtils.copyProperties(request, existingAvailableBalance);
 
                 newbalance = existingAvailableBalance + lastTransaction.getAmount();
 
        budget.setAvailableBalance(newbalance);
 
-           // return budgetRepository.save(budget);
+
+           return budgetRepository.save(budget);
    }
 
 
@@ -62,7 +66,6 @@ public class BudgetService {
         LOGGER.info("Deleting user {} ", id);
         budgetRepository.deleteById(id);
     }
-
 
 
 

@@ -39,8 +39,8 @@ public ResponseEntity<Budget> getBudget(@PathVariable long id) {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Budget> updateBudget(@PathVariable long id, Transaction lastTransaction, @RequestBody  @Valid SaveBudgetRequest request) {
-    Budget budget = budgetService.updateBudget(id, request, lastTransaction );
+    public ResponseEntity<Budget> updateBudget(@PathVariable long id, @PathVariable Transaction lastTransaction, @RequestBody  @Valid SaveBudgetRequest request) {
+    Budget budget = budgetService.updateBudget(id,  lastTransaction, request );
 
     return ResponseEntity.ok(budget);
 }

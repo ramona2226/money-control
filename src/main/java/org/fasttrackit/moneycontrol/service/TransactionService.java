@@ -1,7 +1,6 @@
 package org.fasttrackit.moneycontrol.service;
 
 
-import org.fasttrackit.moneycontrol.domain.Budget;
 import org.fasttrackit.moneycontrol.domain.Transaction;
 import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.TransactionRepository;
@@ -26,27 +25,28 @@ public class TransactionService {
     public TransactionService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
-// am pus void sa nu imi dea eroare de compilare pana   rezolv cu baza de date.
-    public void createTransaction(SaveBudgetRequest request) {
+
+    public Transaction createTransaction(SaveBudgetRequest request) {
         LOGGER.info("Creating Transaction: {}", request);
 
         Transaction transaction = new Transaction();
 
-        //  return transactionRepository.save(transaction);
+         transactionRepository.save(transaction);
+         return transaction;
 
-    }
+          }
 
-    public Budget getTransaction(long id) {
+    public Transaction getTransaction(long id) {
         LOGGER.info("Retrieving transaction{}", id);
 
-// aici mi-a sugerat sa pun Budget si nu Transaction transaction si nu inteleg de ce.
-        Budget transaction = transactionRepository.findById(id)
+
+        Transaction transaction = transactionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Budget" + id + "does not exist"));
        return transaction;
     }
 
-    // nu stiu oare are sens sa pun su un update o metoda update, gen in viata reala
-    // odata ce ai facut o plata nu poti sa o schimbi.  insa poate ar trebuii sa includ toate   metodele CRUD
+    // nu stiu oare are sens sa pun si un update o metoda update, gen in viata reala
+    // odata ce ai facut o plata nu poti sa o schimbi.  insa   metodele CRUD  cred ca trebuie implementate toate.
 
 
     public void deleteTransaction(long id) {
