@@ -1,14 +1,10 @@
 package org.fasttrackit.moneycontrol.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
 
 @Entity
 public class Budget {
-
-
 
     @Id
     @GeneratedValue
