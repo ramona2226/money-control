@@ -3,7 +3,7 @@ package org.fasttrackit.moneycontrol.user;
 import org.fasttrackit.moneycontrol.domain.User;
 import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.service.UserService;
-import org.fasttrackit.moneycontrol.transfer.SaveUserRequest;
+import org.fasttrackit.moneycontrol.transfer.user.SaveUserRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

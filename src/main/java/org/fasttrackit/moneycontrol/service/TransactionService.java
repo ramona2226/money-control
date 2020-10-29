@@ -4,12 +4,13 @@ package org.fasttrackit.moneycontrol.service;
 import org.fasttrackit.moneycontrol.domain.Transaction;
 import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.TransactionRepository;
-import org.fasttrackit.moneycontrol.transfer.SaveBudgetRequest;
+import org.fasttrackit.moneycontrol.transfer.budget.SaveBudgetRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 
 
 @Service
@@ -25,7 +26,7 @@ public class TransactionService {
     public TransactionService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
-
+@Transactional
     public Transaction createTransaction(SaveBudgetRequest request) {
         LOGGER.info("Creating Transaction: {}", request);
 

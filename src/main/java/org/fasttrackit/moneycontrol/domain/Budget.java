@@ -10,7 +10,7 @@ public class Budget {
     @GeneratedValue
     private long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     private User user;
 
@@ -55,15 +55,15 @@ public class Budget {
         this.existingAvailableBalance = availableBalance;
     }
 
-
     @Override
     public String toString() {
         return "Budget{" +
                 "id=" + id +
-                ", user=" + user +
+                ", existingAvailableBalance=" + existingAvailableBalance +
                 ", valuteName='" + valuteName + '\'' +
-                ", availableBalance=" + existingAvailableBalance +
                 '}';
     }
+
+
 }
 

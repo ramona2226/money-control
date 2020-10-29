@@ -1,4 +1,4 @@
-package org.fasttrackit.moneycontrol.transfer;
+package org.fasttrackit.moneycontrol.transfer.user;
 
 import javax.validation.constraints.NotNull;
 

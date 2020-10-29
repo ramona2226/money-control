@@ -1,4 +1,4 @@
-package org.fasttrackit.moneycontrol.transfer;
+package org.fasttrackit.moneycontrol.transfer.user;
 
 public class GetUsersRequest {
 

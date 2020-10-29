@@ -2,7 +2,7 @@ package org.fasttrackit.moneycontrol.web;
 
 import org.fasttrackit.moneycontrol.domain.Transaction;
 import org.fasttrackit.moneycontrol.service.TransactionService;
-import org.fasttrackit.moneycontrol.transfer.SaveBudgetRequest;
+import org.fasttrackit.moneycontrol.transfer.budget.SaveBudgetRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

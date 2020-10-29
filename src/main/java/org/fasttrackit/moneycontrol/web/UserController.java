@@ -2,8 +2,8 @@ package org.fasttrackit.moneycontrol.web;
 
 import org.fasttrackit.moneycontrol.domain.User;
 import org.fasttrackit.moneycontrol.service.UserService;
-import org.fasttrackit.moneycontrol.transfer.GetUsersRequest;
-import org.fasttrackit.moneycontrol.transfer.SaveUserRequest;
+import org.fasttrackit.moneycontrol.transfer.user.GetUsersRequest;
+import org.fasttrackit.moneycontrol.transfer.user.SaveUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
