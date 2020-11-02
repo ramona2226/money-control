@@ -7,11 +7,13 @@ import java.time.LocalDate;
 @Entity
 public class Transaction {
 
+
     @Id
     @GeneratedValue
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    // aici trebuie sa verific daca mai trebuie sa complcetez ceva gen la relatia @oneToOne am avut partea aceea cu fetch
+    @ManyToOne
     @MapsId
     private User user;
 
@@ -29,12 +31,38 @@ public class Transaction {
     private double amount;
 
     @NotNull
+    private LocalDate date;
+
+    @NotNull
     private String description;
 
 
 
-    @NotNull
-    private LocalDate date;
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
 
     public long getId() {
         return id;
@@ -80,10 +108,15 @@ public class Transaction {
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
+
                 ", user=" + user +
                 ", type='" + type + '\'' +
+                ", from='" + from + '\'' +
+                ", to='" + to + '\'' +
                 ", amount=" + amount +
+                ", description='" + description + '\'' +
                 ", date=" + date +
                 '}';
     }
+
 }

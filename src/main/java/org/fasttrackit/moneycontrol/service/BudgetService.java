@@ -1,13 +1,16 @@
 package org.fasttrackit.moneycontrol.service;
 
 import org.fasttrackit.moneycontrol.domain.Budget;
+import org.fasttrackit.moneycontrol.domain.Transaction;
 import org.fasttrackit.moneycontrol.domain.User;
 import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.BudgetRepository;
 import org.fasttrackit.moneycontrol.transfer.budget.BudgetResponse;
+import org.fasttrackit.moneycontrol.transfer.budget.SaveBudgetRequest;
 import org.fasttrackit.moneycontrol.transfer.transaction.AddTransactionRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -61,23 +64,23 @@ return  budgetRepository.save(budget);
 
     }
 
-//  public Budget updateBudget(long id, Transaction lastTransaction, SaveBudgetRequest request) {
-//
-//      double newbalance;
-//
-//       BudgetResponse budget = getBudget(id);
-//        double balance = budget.getbalance();
-//        BeanUtils.copyProperties(request, balance);
-//
-//                newbalance = existingAvailableBalance + lastTransaction.getAmount();
-//
-//       budget.setAvailableBalance(newbalance);
-//
-//
-//           return budgetRepository.save(budget);
-//   }
+  public  Budget updateBudget(long id, Transaction lastTransaction, SaveBudgetRequest request) {
 
 
+      double availableBalance;
+
+      LOGGER.info("Updating budget {}: {} {}", id, lastTransaction, request);
+
+      BudgetResponse budget = getBudget(id);
+      double existingBalance = budget.getBalance();
+      BeanUtils.copyProperties(request, existingBalance);
+
+      availableBalance = existingBalance + lastTransaction.getAmount();
+
+
+     return  budgetRepository.save(budget);
+
+  }
 
 
     public void deleteBudget(long id) {

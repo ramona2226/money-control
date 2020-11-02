@@ -6,17 +6,19 @@ public class SaveBudgetRequest {
 
 
     @NotNull
-    private double mybudget;
+    private double balance;
 
     @NotNull
     private String valuteName;
 
-    public double getMybudget() {
-        return mybudget;
+    private String answer;
+
+    public double getBalance() {
+        return balance;
     }
 
-    public void setMybudget(double mybudget) {
-        this.mybudget = mybudget;
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     public String getValuteName() {
@@ -27,14 +29,25 @@ public class SaveBudgetRequest {
         this.valuteName = valuteName;
     }
 
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
     @Override
     public String toString() {
         return "SaveBudgetRequest{" +
-                "mybudget=" + mybudget +
+                "balance=" + balance +
                 ", valuteName='" + valuteName + '\'' +
+                ", answer='" + answer + '\'' +
                 '}';
     }
 }
+
+
 
 
 

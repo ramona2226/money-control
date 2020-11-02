@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 
 
@@ -20,7 +19,7 @@ public class BudgetController {
 
     private final BudgetService budgetService;
 
-@Autowired
+    @Autowired
     public BudgetController(BudgetService budgetService) {
         this.budgetService = budgetService;
     }
@@ -28,31 +27,34 @@ public class BudgetController {
 
     @PostMapping
     public ResponseEntity<Budget> createBudget(@RequestBody @Valid AddTransactionRequest request) {
-    Budget budget = budgetService.createBudget(request);
+        Budget budget = budgetService.addBudget(request);
 
-    return ResponseEntity.ok(budget);
-//
-//    @PutMapping
-//    public ResponseEntity<Budget> addTransaction(@RequestBody @Valid AddTrasactionRequest request){
-//    Budget budget = budgetService.addTransaction(request);
-//
-//    return ResponseEntity.ok(budget);
+        return ResponseEntity.ok(budget);
 
-}
+    }
+
+    @PutMapping
+    public ResponseEntity<Budget> addTransaction(@RequestBody @Valid AddTransactionRequest request) {
+        Budget budget = budgetService.addBudget(request);
+
+        return ResponseEntity.ok(budget);
+
+    }
+
     @GetMapping("/{userId}")
-public ResponseEntity<BudgetResponse> getBudget(@PathVariable long userId) {
+    public ResponseEntity<BudgetResponse> getBudget(@PathVariable long userId) {
         BudgetResponse budget = budgetService.getBudget(userId);
 
-        return  ResponseEntity.ok(budget);
+        return ResponseEntity.ok(budget);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Budget> deleteBudget(@PathVariable long id) {
+        budgetService.deleteBudget(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
 
 
-@DeleteMapping("/{id}")
-public ResponseEntity<Budget> deleteBudget(@PathVariable long id) {
-budgetService.deleteBudget(id);
-
-return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-}
-
-
-}
