@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 public class Budget{
 
     @Id
+
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)

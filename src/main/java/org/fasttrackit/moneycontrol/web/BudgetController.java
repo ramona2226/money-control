@@ -4,7 +4,7 @@ package org.fasttrackit.moneycontrol.web;
 import org.fasttrackit.moneycontrol.domain.Budget;
 import org.fasttrackit.moneycontrol.service.BudgetService;
 import org.fasttrackit.moneycontrol.transfer.budget.BudgetResponse;
-import org.fasttrackit.moneycontrol.transfer.transaction.AddTrasactionRequest;
+import org.fasttrackit.moneycontrol.transfer.transaction.CreateOrAddTransactionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +25,18 @@ public class BudgetController {
         this.budgetService = budgetService;
     }
 
-    @PutMapping
-    public ResponseEntity<Budget> addTransaction(@RequestBody @Valid AddTrasactionRequest request){
-    Budget budget = budgetService.addTransaction(request);
+
+    @PostMapping
+    public ResponseEntity<Budget> createBudget(@RequestBody @Valid CreateOrAddTransactionRequest request) {
+    Budget budget = budgetService.createBudget(request);
 
     return ResponseEntity.ok(budget);
+//
+//    @PutMapping
+//    public ResponseEntity<Budget> addTransaction(@RequestBody @Valid AddTrasactionRequest request){
+//    Budget budget = budgetService.addTransaction(request);
+//
+//    return ResponseEntity.ok(budget);
 
 }
     @GetMapping("/{userId}")

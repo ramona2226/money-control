@@ -3,16 +3,12 @@ package org.fasttrackit.moneycontrol.transfer.transaction;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-public class AddTrasactionRequest {
+public class CreateOrAddTransactionRequest {
 
 
     @NotNull
 
     private Long userId;
-
-    @NotNull
-    public Long transactionId;
-
 
     public Long getUserId() {
         return userId;
@@ -37,13 +33,6 @@ public class AddTrasactionRequest {
     @NotNull
     private String description;
 
-    public Long getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(Long transactionId) {
-        this.transactionId = transactionId;
-    }
 
     public long getType() {
         return type;
@@ -92,7 +81,6 @@ public class AddTrasactionRequest {
     public String toString() {
         return "AddTrasactionRequest{" +
                 "userId=" + userId +
-                "transactionId=" + transactionId +
                 ", type=" + type +
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +

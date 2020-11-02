@@ -4,6 +4,16 @@ public class BudgetResponse {
 
     long id;
 
+    String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public long getId() {
         return id;
     }
@@ -16,6 +26,8 @@ public class BudgetResponse {
     public String toString() {
         return "BudgetResponse{" +
                 "id=" + id +
+                "type='" + type + '\'' +
                 '}';
     }
+
 }
