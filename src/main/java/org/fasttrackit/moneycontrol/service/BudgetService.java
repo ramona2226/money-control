@@ -1,16 +1,17 @@
 package org.fasttrackit.moneycontrol.service;
 
 import org.fasttrackit.moneycontrol.domain.Budget;
+import org.fasttrackit.moneycontrol.domain.User;
 import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.BudgetRepository;
 import org.fasttrackit.moneycontrol.transfer.budget.BudgetResponse;
-import org.fasttrackit.moneycontrol.transfer.transaction.CreateOrAddTransactionRequest;
+import org.fasttrackit.moneycontrol.transfer.transaction.AddTransactionRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
-import javax.validation.Valid;
+
 
 
 @Service
@@ -27,13 +28,22 @@ public class BudgetService {
         this.budgetRepository = budgetRepository;
         this.userService = userService;
 }
-    public Budget createBudget(@Valid CreateOrAddTransactionRequest request) {
 
-        LOGGER.info("Creating Budget : {}", request);
+public Budget addBudget(AddTransactionRequest request) {
 
-        Budget budget = new Budget();
-        budgetRepository.save(budget);
-        return budget;
+        LOGGER.info("Adding money to my budget: {}", request);
+
+        Budget budget = budgetRepository.findById(request.getUserId())
+        .orElse(new Budget());
+
+        if (budget.getUser() == null) {
+            User user  = userService.getUser(request.getUserId());
+            budget.setUser(user);
+
+        }
+        // add product to card
+return  budgetRepository.save(budget);
+
     }
 
     @Transactional

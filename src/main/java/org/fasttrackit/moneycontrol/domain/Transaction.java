@@ -20,7 +20,17 @@ public class Transaction {
     private String type;
 
     @NotNull
+    private String from;
+
+    @NotNull
+    private String to;
+
+    @NotNull
     private double amount;
+
+    @NotNull
+    private String description;
+
 
 
     @NotNull
