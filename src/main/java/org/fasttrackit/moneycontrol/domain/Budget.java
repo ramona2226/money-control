@@ -3,11 +3,11 @@ package org.fasttrackit.moneycontrol.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+
 @Entity
-public class Budget {
+public class Budget{
 
     @Id
-    @GeneratedValue
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -15,20 +15,10 @@ public class Budget {
     private User user;
 
 
-    private double existingAvailableBalance;
+    private double balance;
 
 @NotNull
     private  String valuteName;
-
-
-
-    public String getValuteName() {
-        return valuteName;
-    }
-
-    public void setValuteName(String valuteName) {
-        this.valuteName = valuteName;
-    }
 
 
     public long getId() {
@@ -47,19 +37,28 @@ public class Budget {
         this.user = user;
     }
 
-    public double getAvailableBalance() {
-        return existingAvailableBalance;
+    public double getExistingAvailableBalance() {
+        return balance;
     }
 
-    public void setAvailableBalance(double availableBalance) {
-        this.existingAvailableBalance = availableBalance;
+    public void setExistingAvailableBalance(double existingAvailableBalance) {
+        this.balance = existingAvailableBalance;
+    }
+
+    public String getValuteName() {
+        return valuteName;
+    }
+
+    public void setValuteName(String valuteName) {
+        this.valuteName = valuteName;
     }
 
     @Override
     public String toString() {
         return "Budget{" +
                 "id=" + id +
-                ", existingAvailableBalance=" + existingAvailableBalance +
+                ", user=" + user +
+                ", existingAvailableBalance=" + balance +
                 ", valuteName='" + valuteName + '\'' +
                 '}';
     }

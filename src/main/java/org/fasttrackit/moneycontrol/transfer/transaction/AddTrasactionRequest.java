@@ -10,6 +10,10 @@ public class AddTrasactionRequest {
 
     private Long userId;
 
+    @NotNull
+    public Long transactionId;
+
+
     public Long getUserId() {
         return userId;
     }
@@ -33,6 +37,13 @@ public class AddTrasactionRequest {
     @NotNull
     private String description;
 
+    public Long getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(Long transactionId) {
+        this.transactionId = transactionId;
+    }
 
     public long getType() {
         return type;
@@ -81,6 +92,7 @@ public class AddTrasactionRequest {
     public String toString() {
         return "AddTrasactionRequest{" +
                 "userId=" + userId +
+                "transactionId=" + transactionId +
                 ", type=" + type +
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +
@@ -88,4 +100,5 @@ public class AddTrasactionRequest {
                 ", description='" + description + '\'' +
                 '}';
     }
+
 }
