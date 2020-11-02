@@ -22,33 +22,11 @@ public class Transaction {
 @NotNull
     private double amount;
 
+
 @NotNull
 private LocalDate date;
 
 
 
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "type='" + type + '\'' +
-                ", amount=" + amount +
-                '}';
-    }
 }

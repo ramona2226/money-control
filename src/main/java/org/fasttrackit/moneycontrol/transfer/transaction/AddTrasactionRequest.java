@@ -5,14 +5,87 @@ import java.time.LocalDate;
 
 public class AddTrasactionRequest {
 
+
+    @NotNull
+
+    private Long userId;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    @NotNull
     private long type;
 
-// aici nu stiu exact daca sa le dau toate proprietatile
- //  si daca trebuie apoi sa sterg clasele Income si payment.
-  // ai putea sa imi explici ce face acest domeniu? transaction.
-//   transaction controller transfera datele catre pagina noastra web
-//   dat trasaction ul acesta nu stiu exact la ce se refera
+    @NotNull
+    private String from;
+
+    @NotNull
+    private String to;
+
+    @NotNull
+        private LocalDate date;
+
+    @NotNull
+    private String description;
 
 
-
+    public long getType() {
+        return type;
     }
+
+    public void setType(long type) {
+        this.type = type;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+
+
+    @Override
+    public String toString() {
+        return "AddTrasactionRequest{" +
+                "userId=" + userId +
+                ", type=" + type +
+                ", from='" + from + '\'' +
+                ", to='" + to + '\'' +
+                ", date=" + date +
+                ", description='" + description + '\'' +
+                '}';
+    }
+}

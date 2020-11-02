@@ -2,10 +2,9 @@ package org.fasttrackit.moneycontrol.web;
 
 
 import org.fasttrackit.moneycontrol.domain.Budget;
-import org.fasttrackit.moneycontrol.domain.Transaction;
 import org.fasttrackit.moneycontrol.service.BudgetService;
 import org.fasttrackit.moneycontrol.transfer.budget.BudgetResponse;
-import org.fasttrackit.moneycontrol.transfer.budget.SaveBudgetRequest;
+import org.fasttrackit.moneycontrol.transfer.transaction.AddTrasactionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,24 +26,20 @@ public class BudgetController {
     }
 
     @PutMapping
-    public ResponseEntity<Budget> createBudget(@RequestBody @Valid SaveBudgetRequest request) {
-    Budget budget = budgetService.createBudget(request);
-    return new ResponseEntity<>(budget, HttpStatus.CREATED);
+    public ResponseEntity<Budget> addTransaction(@RequestBody @Valid AddTrasactionRequest request){
+    Budget budget = budgetService.addTransaction(request);
 
-    }
+    return ResponseEntity.ok(budget);
+
+}
     @GetMapping("/{userId}")
 public ResponseEntity<BudgetResponse> getBudget(@PathVariable long userId) {
         BudgetResponse budget = budgetService.getBudget(userId);
+
         return  ResponseEntity.ok(budget);
 }
 
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Budget> updateBudget(@PathVariable long id, @PathVariable Transaction lastTransaction, @RequestBody  @Valid SaveBudgetRequest request) {
-//    Budget budget = budgetService.updateBudget(id,  lastTransaction, request );
-//
-//    return ResponseEntity.ok(budget);
-//}
 @DeleteMapping("/{id}")
 public ResponseEntity<Budget> deleteBudget(@PathVariable long id) {
 budgetService.deleteBudget(id);

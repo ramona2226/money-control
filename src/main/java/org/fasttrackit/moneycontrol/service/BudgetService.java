@@ -1,18 +1,18 @@
 package org.fasttrackit.moneycontrol.service;
 
 import org.fasttrackit.moneycontrol.domain.Budget;
-import org.fasttrackit.moneycontrol.domain.Transaction;
+import org.fasttrackit.moneycontrol.domain.User;
 import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.BudgetRepository;
 import org.fasttrackit.moneycontrol.transfer.budget.BudgetResponse;
 import org.fasttrackit.moneycontrol.transfer.budget.SaveBudgetRequest;
+import org.fasttrackit.moneycontrol.transfer.transaction.AddTrasactionRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
+
 
 
 @Service
@@ -21,24 +21,33 @@ public class BudgetService {
     private static final Logger LOGGER = LoggerFactory.getLogger(BudgetService.class);
 
     public final BudgetRepository budgetRepository;
+    public final UserService userService;
 
     @Autowired
-    public BudgetService(BudgetRepository budgetRepository) {
+    public BudgetService(BudgetRepository budgetRepository, UserService userService) {
+
         this.budgetRepository = budgetRepository;
+        this.userService = userService;
     }
 
+    @Transactional
 
 
-    public Budget createBudget(SaveBudgetRequest request) {
+    public Budget addTransaction(AddTrasactionRequest request) {
+        LOGGER.info("Adding transaction: {}", request);
 
-        LOGGER.info("Creating Budget : {}", request);
+        Budget budget = budgetRepository.findById(request.getUserId())
+                .orElse(new Budget());
 
-        Budget budget = new Budget();
-      budgetRepository.save(budget);
-        return budget;
-    }
+        if (budget.getUser() == null) {
+              User user = userService.getUser(request.getUserId());
+              budget.setUser(user);
 
-@Transactional
+          }
+          return budgetRepository.save(budget);
+      }
+
+
         public BudgetResponse getBudget(long userId) {
     LOGGER.info("Retriving available balance{}", userId);
 
@@ -52,6 +61,7 @@ public class BudgetService {
     return budgetResponse;
 
 }
+
 
 
 

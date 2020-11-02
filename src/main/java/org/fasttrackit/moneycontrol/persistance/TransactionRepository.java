@@ -1,3 +1,4 @@
+
 package org.fasttrackit.moneycontrol.persistance;
 
 
@@ -12,3 +13,4 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
 
 }
+
