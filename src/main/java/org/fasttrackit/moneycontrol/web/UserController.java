@@ -2,7 +2,7 @@ package org.fasttrackit.moneycontrol.web;
 
 import org.fasttrackit.moneycontrol.domain.User;
 import org.fasttrackit.moneycontrol.service.UserService;
-import org.fasttrackit.moneycontrol.transfer.user.GetUsersRequest;
+import org.fasttrackit.moneycontrol.transfer.user.GetUserRequest;
 import org.fasttrackit.moneycontrol.transfer.user.SaveUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,7 +41,7 @@ public class UserController {
         return  ResponseEntity.ok(user);
     }
 @GetMapping
-     public ResponseEntity<Page<User>> getUsers(GetUsersRequest request, Pageable pageable){
+     public ResponseEntity<Page<User>> getUsers(GetUserRequest request, Pageable pageable){
 
     Page<User> users = userService.getUsers(request, pageable);
     return ResponseEntity.ok(users);
@@ -57,6 +57,5 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
     }
 }

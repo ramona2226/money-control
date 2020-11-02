@@ -5,11 +5,15 @@ import javax.validation.constraints.NotNull;
 public class SaveBudgetRequest {
 
 
+@NotNull
+    long userId;
+
     @NotNull
     private double balance;
 
     @NotNull
     private String valuteName;
+
 
     private String answer;
 
@@ -46,10 +50,3 @@ public class SaveBudgetRequest {
                 '}';
     }
 }
-
-
-
-
-
-
-

@@ -3,7 +3,7 @@ package org.fasttrackit.moneycontrol.service;
 import org.fasttrackit.moneycontrol.domain.User;
 import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.UserRepository;
-import org.fasttrackit.moneycontrol.transfer.user.GetUsersRequest;
+import org.fasttrackit.moneycontrol.transfer.user.GetUserRequest;
 import org.fasttrackit.moneycontrol.transfer.user.SaveUserRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +42,7 @@ public class UserService {
 
 
     }
+
     public User getUser(long id) {
 
         LOGGER.info("Retrieving user{}", id);
@@ -49,10 +50,11 @@ public class UserService {
 
         return userRepository.findById(id)
                 //Lambda expression
-                .orElseThrow(()-> new ResourceNotFoundException(("User " + id + "does not exist")));
+                .orElseThrow(() -> new ResourceNotFoundException(("User " + id + "does not exist")));
     }
 
-    public Page<User> getUsers(GetUsersRequest request, Pageable pageable) {
+
+    public Page<User> getUsers(GetUserRequest request, Pageable pageable) {
         LOGGER.info("Retriving  users");
 
 

@@ -1,6 +1,7 @@
 package org.fasttrackit.moneycontrol.transfer.user;
 
-public class GetUsersRequest {
+public class GetUserRequest {
+
 
     private String partialFirstName;
     private String partialLastName;
@@ -29,5 +30,3 @@ public class GetUsersRequest {
                 '}';
     }
 }
-
-

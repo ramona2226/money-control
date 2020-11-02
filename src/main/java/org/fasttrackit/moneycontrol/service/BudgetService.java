@@ -78,7 +78,8 @@ return  budgetRepository.save(budget);
       availableBalance = existingBalance + lastTransaction.getAmount();
 
 
-     return  budgetRepository.save(budget);
+       return budgetRepository.save(budget);
+
 
   }
 

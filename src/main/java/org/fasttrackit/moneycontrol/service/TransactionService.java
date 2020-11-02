@@ -43,6 +43,7 @@ public class TransactionService {
             LOGGER.info(" This payment is overage the total daily payment limit with" + overagePayment + " " +
                     "Are you sure you want to make this payment?");
         LOGGER.info("Please press Y for Yes or N for No.");
+        // aici o sa ii fac si o recursivitate in caz ca userul introduce alt raspuns inafara de Y sau n SA II SE REPEDE INTREBAREA.
         if (request.getAnswer() == "Y") {
             LOGGER.info("Succesfull payment");
 

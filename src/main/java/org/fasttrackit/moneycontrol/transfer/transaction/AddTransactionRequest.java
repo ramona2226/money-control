@@ -1,6 +1,5 @@
 package org.fasttrackit.moneycontrol.transfer.transaction;
 
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -9,9 +8,7 @@ public class AddTransactionRequest {
 
 
     @NotNull
-
-@ManyToOne
-   private Long userId;
+    long userId;
 
     @NotNull
     // type can be pay  money or add money.
@@ -27,17 +24,16 @@ public class AddTransactionRequest {
     private double amount;
 
     @NotNull
-    private String description;
-
-    @NotNull
     private LocalDate date;
 
+    @NotNull
+    private String description;
 
-    public Long getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -97,8 +93,8 @@ public class AddTransactionRequest {
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +
                 ", amount=" + amount +
-                ", description='" + description + '\'' +
                 ", date=" + date +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

@@ -1,19 +1,24 @@
 package org.fasttrackit.moneycontrol.transfer.budget;
 
+import javax.validation.constraints.NotNull;
+
 public class BudgetResponse {
 
-    long id;
-
+    @NotNull
+     private long userId;
+@NotNull
     double balance;
+@NotNull
+    String valuteName;
 
-    String type;
+private String answer;
 
     public long getId() {
-        return id;
+        return userId;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.userId = id;
     }
 
     public double getBalance() {
@@ -24,20 +29,20 @@ public class BudgetResponse {
         this.balance = balance;
     }
 
-    public String getType() {
-        return type;
+    public String getValuteName() {
+        return valuteName;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setValuteName(String valuteName) {
+        this.valuteName = valuteName;
     }
 
     @Override
     public String toString() {
         return "BudgetResponse{" +
-                "id=" + id +
+                "id=" + userId +
                 ", balance=" + balance +
-                ", type='" + type + '\'' +
+                ", valuteName='" + valuteName + '\'' +
                 '}';
     }
 }

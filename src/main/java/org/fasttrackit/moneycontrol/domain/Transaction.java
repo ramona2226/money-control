@@ -10,10 +10,11 @@ public class Transaction {
 
     @Id
     @GeneratedValue
+
     private long id;
 
     // aici trebuie sa verific daca mai trebuie sa complcetez ceva gen la relatia @oneToOne am avut partea aceea cu fetch
-    @ManyToOne
+   @ManyToOne
     @MapsId
     private User user;
 
