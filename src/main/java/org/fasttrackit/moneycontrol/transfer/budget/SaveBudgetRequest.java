@@ -4,9 +4,8 @@ import javax.validation.constraints.NotNull;
 
 public class SaveBudgetRequest {
 
-
-@NotNull
-    long userId;
+    @NotNull
+    private long id;
 
     @NotNull
     private double balance;
@@ -16,6 +15,14 @@ public class SaveBudgetRequest {
 
 
     private String answer;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public double getBalance() {
         return balance;
@@ -44,7 +51,8 @@ public class SaveBudgetRequest {
     @Override
     public String toString() {
         return "SaveBudgetRequest{" +
-                "balance=" + balance +
+                "id=" + id +
+                ", balance=" + balance +
                 ", valuteName='" + valuteName + '\'' +
                 ", answer='" + answer + '\'' +
                 '}';

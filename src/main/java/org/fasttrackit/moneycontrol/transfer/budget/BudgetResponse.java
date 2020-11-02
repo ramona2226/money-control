@@ -5,20 +5,22 @@ import javax.validation.constraints.NotNull;
 public class BudgetResponse {
 
     @NotNull
-     private long userId;
-@NotNull
+     private long Id;
+
+    @NotNull
     double balance;
-@NotNull
+
+    @NotNull
     String valuteName;
 
 private String answer;
 
     public long getId() {
-        return userId;
+        return Id;
     }
 
-    public void setId(long id) {
-        this.userId = id;
+    public void setId(long userId) {
+        this.Id = userId;
     }
 
     public double getBalance() {
@@ -37,12 +39,21 @@ private String answer;
         this.valuteName = valuteName;
     }
 
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
     @Override
     public String toString() {
         return "BudgetResponse{" +
-                "id=" + userId +
+                "userId=" + Id +
                 ", balance=" + balance +
                 ", valuteName='" + valuteName + '\'' +
+                ", answer='" + answer + '\'' +
                 '}';
     }
 }
