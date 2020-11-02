@@ -20,7 +20,6 @@ public class AddTransactionRequest {
     @NotNull
     private String to;
 
-    @NotNull
     private double amount;
 
     @NotNull

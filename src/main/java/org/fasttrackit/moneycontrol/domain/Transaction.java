@@ -3,6 +3,8 @@ package org.fasttrackit.moneycontrol.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Transaction {
@@ -13,8 +15,8 @@ public class Transaction {
 
     private long id;
 
-    // aici trebuie sa verific daca mai trebuie sa complcetez ceva gen la relatia @oneToOne am avut partea aceea cu fetch
-   @ManyToOne
+
+  @ManyToOne
     @MapsId
     private User user;
 
@@ -29,7 +31,7 @@ public class Transaction {
     private String to;
 
     @NotNull
-    private double amount;
+    private Double amount;
 
     @NotNull
     private LocalDate date;
@@ -37,9 +39,22 @@ public class Transaction {
     @NotNull
     private String description;
 
+    @ManyToMany(mappedBy = "transaction")
+    private Set<Budget> budget = new HashSet<>();
 
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
 
-    public String getFrom() {
+    public Set<Budget> getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Set<Budget> budget) {
+        this.budget = budget;
+    }
+
+     public String getFrom() {
         return from;
     }
 
@@ -105,12 +120,26 @@ public class Transaction {
         this.date = date;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Transaction that = (Transaction) o;
+
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
-
-                ", user=" + user +
                 ", type='" + type + '\'' +
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +
