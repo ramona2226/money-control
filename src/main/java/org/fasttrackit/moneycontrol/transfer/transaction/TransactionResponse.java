@@ -1,50 +1,30 @@
 package org.fasttrackit.moneycontrol.transfer.transaction;
 
-import javax.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 
+public class TransactionResponse {
 
-public class AddTransactionRequest {
+    private long id;
 
-
-    @NotNull
-    long userId;
-
-    @NotNull
-    private Long transactionId;
-
-    @NotNull
-    // type can be pay  money or add money.
     private String type;
 
-    @NotNull
     private String from;
 
-    @NotNull
     private String to;
 
     private double amount;
 
-    @NotNull
     private LocalDate date;
 
-    @NotNull
     private String description;
 
-    public long getUserId() {
-        return userId;
+    public long getId() {
+        return id;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public Long getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(Long transactionId) {
-        this.transactionId = transactionId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getType() {
@@ -79,14 +59,6 @@ public class AddTransactionRequest {
         this.amount = amount;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public LocalDate getDate() {
         return date;
     }
@@ -95,11 +67,18 @@ public class AddTransactionRequest {
         this.date = date;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
-        return "AddTransactionRequest{" +
-                "userId=" + userId +
-                ", transactionId=" + transactionId +
+        return "TransactionResponse{" +
+                "id=" + id +
                 ", type='" + type + '\'' +
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +

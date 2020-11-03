@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,32 +28,35 @@ public class BudgetService {
     @Autowired
     public final BudgetRepository budgetRepository;
     public final UserService userService;
-public final TransactionService transactionService;
+    public final TransactionService transactionService;
+    public final Budget budget;
 
-    public BudgetService(BudgetRepository budgetRepository, UserService userService, TransactionService transactionService) {
+
+    public BudgetService(BudgetRepository budgetRepository, UserService userService, TransactionService transactionService, Budget budget) {
         this.budgetRepository = budgetRepository;
         this.userService = userService;
         this.transactionService = transactionService;
+        this.budget = budget;
     }
 
-public Budget addBudget(AddTransactionRequest request) {
+    public Budget addBudget(AddTransactionRequest request) {
 
         LOGGER.info("Adding money to my budget: {}", request);
 
         Budget budget = budgetRepository.findById(request.getUserId())
-        .orElse(new Budget());
+                .orElse(new Budget());
 
         if (budget.getUser() == null) {
-            User user  = userService.getUser(request.getUserId());
+            User user = userService.getUser(request.getUserId());
             budget.setUser(user);
 
         }
-  Transaction transaction = transactionService.getTransaction(request.getTransactionId());
+        Transaction transaction = transactionService.getTransaction(request.getTransactionId());
         budget.addTransaction(transaction);
 
 
         // add product to card
-return  budgetRepository.save(budget);
+        return budgetRepository.save(budget);
 
     }
 
@@ -81,31 +85,30 @@ return  budgetRepository.save(budget);
         }
 
 
-
         budgetResponse.setTransactions(transactions);
 
         return budgetResponse;
 
     }
 
-  public  Budget updateBudget(long id, Transaction lastTransaction, SaveBudgetRequest request) {
+    public Budget updateBudget(long id, Transaction lastTransaction, SaveBudgetRequest request) {
+        double newBalance;
+
+        LOGGER.info("Updating budget {}: {} {}", id, lastTransaction, request);
+
+        BudgetResponse budget = getBudget(id);
+        double existingBalance = budget.getBalance();
+        BeanUtils.copyProperties(request, existingBalance);
 
 
-      double availableBalance;
-
-      LOGGER.info("Updating budget {}: {} {}", id, lastTransaction, request);
-
-      BudgetResponse budget = getBudget(id);
-      double existingBalance = budget.getBalance();
-      BeanUtils.copyProperties(request, existingBalance);
-
-      availableBalance = existingBalance + lastTransaction.getAmount();
+      newBalance =  existingBalance + lastTransaction.getAmount();
 
 
-       return budgetRepository.save(budget);
+
+        return  BudgetRepository.save(budget);
 
 
-  }
+    }
 
 
     public void deleteBudget(long id) {
@@ -114,4 +117,4 @@ return  budgetRepository.save(budget);
     }
 
 
-    }
+}

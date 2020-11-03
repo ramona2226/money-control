@@ -7,7 +7,7 @@ import java.util.Set;
 
 
 @Entity
-public class Budget{
+public class Budget {
 
     @Id
 
@@ -26,14 +26,14 @@ public class Budget{
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "budget_transaction",
-    joinColumns = @JoinColumn(name = "budget_id"),
+            joinColumns = @JoinColumn(name = "budget_id"),
             inverseJoinColumns = @JoinColumn(name = "transaction_id"))
     private Set<Transaction> transactions = new HashSet<>();
 
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
 
-transaction.getBudget().add(this);
+        transaction.getBudget().add(this);
     }
 
     public void removeTransaction(Transaction transaction) {
@@ -41,8 +41,8 @@ transaction.getBudget().add(this);
         transaction.getBudget().remove(this);
     }
 
-@NotNull
-    private  String valuteName;
+    @NotNull
+    private String valuteName;
 
     public Set<Transaction> getTransactions() {
         return transactions;

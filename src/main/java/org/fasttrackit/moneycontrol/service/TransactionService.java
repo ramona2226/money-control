@@ -5,6 +5,7 @@ import org.fasttrackit.moneycontrol.domain.Transaction;
 import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.TransactionRepository;
 import org.fasttrackit.moneycontrol.transfer.budget.SaveBudgetRequest;
+import org.fasttrackit.moneycontrol.transfer.transaction.TransactionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class TransactionService {
     }
 
     @Transactional
-    public Transaction createTransaction(SaveBudgetRequest request) {
+    public TransactionResponse createTransaction(SaveBudgetRequest request) {
         LOGGER.info("Creating Transaction: {}", request);
         final double totallimitDailyPayment = 100;
 
@@ -52,8 +53,8 @@ public class TransactionService {
 
             if (transaction.getType() == "add") {
                 LOGGER.info("Today it`s a happy day! You recive some money.");
-                 } else if (transaction.getType() == "payment" && budget.getBalance() == 0) {
-                 LOGGER.info("Unsuccesfull transaction. You dont`t have enough money to make a payment." );
+            } else if (transaction.getType() == "payment" && budget.getBalance() == 0) {
+                LOGGER.info("Unsuccesfull transaction. You dont`t have enough money to make a payment.");
 
 
                 // stiu ca  o sa razi  la faza asta dar..
@@ -66,37 +67,44 @@ public class TransactionService {
 //  desii eu  nu is in stare sa scriu o metoda de update la clasa BugdetService dar am idei marete :))
 
 
-
-
 // oare aici e de inteles ca doar transactia facuta se salveaza nu si cea eronata asai?
-                transactionRepository.save(transaction);
+               Transaction saveTransaction = transactionRepository.save(transaction);
+
+               TransactionResponse transactionResponse = new TransactionResponse();
+               transactionResponse.setId(saveTransaction.getId());
+                transactionResponse.setType(saveTransaction.getType());
+                transactionResponse.setFrom(saveTransaction.getFrom());
+               transactionResponse.setTo(saveTransaction.getTo());
+                transactionResponse.setAmount(saveTransaction.getAmount());
+                transactionResponse.setDate(saveTransaction.getDate());
+                transactionResponse.setDescription(saveTransaction.getDescription());
+
             }
-        }
-                return transaction;
 
-        }
-
-
-        public Transaction getTransaction(long id){
-            LOGGER.info("Retrieving transaction{}", id);
-
-
-            Transaction transaction = transactionRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Budget" + id + "does not exist"));
-            return transaction;
-        }
-
-
-        public void deleteTransaction ( long id){
-            LOGGER.info("Delete transaction{}", id);
-
-            transactionRepository.deleteById(id);
-
-        }
 
     }
 
-     // de aici in jos nu stiu daca sa citesti sau nu dar am avut ganduri la 3 noapte
+
+    public Transaction getTransaction(long id) {
+        LOGGER.info("Retrieving transaction{}", id);
+
+
+        Transaction transaction = transactionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Budget" + id + "does not exist"));
+        return transaction;
+    }
+
+
+    public void deleteTransaction(long id) {
+        LOGGER.info("Delete transaction{}", id);
+
+        transactionRepository.deleteById(id);
+
+    }
+
+}
+
+// de aici in jos nu stiu daca sa citesti sau nu dar am avut ganduri la 3 noapte
 // asa ca le-am pus aici. o sa le sterg dupa ce o sa salvez o varianta cu ele .
 
 

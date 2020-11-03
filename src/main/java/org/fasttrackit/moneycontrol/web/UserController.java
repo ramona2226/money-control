@@ -19,7 +19,7 @@ import javax.validation.Valid;
 
 public class UserController {
 
-    private final  UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
@@ -34,25 +34,28 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.CREATED);
 
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable long id) {
         User user = userService.getUser(id);
 
-        return  ResponseEntity.ok(user);
+        return ResponseEntity.ok(user);
     }
-@GetMapping
-     public ResponseEntity<Page<User>> getUsers(GetUserRequest request, Pageable pageable){
 
-    Page<User> users = userService.getUsers(request, pageable);
-    return ResponseEntity.ok(users);
-}
+    @GetMapping
+    public ResponseEntity<Page<User>> getUsers(GetUserRequest request, Pageable pageable) {
+
+        Page<User> users = userService.getUsers(request, pageable);
+        return ResponseEntity.ok(users);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable long id, @RequestBody @Valid SaveUserRequest request) {
         User user = userService.updateUser(id, request);
-        return  ResponseEntity.ok(user);
+        return ResponseEntity.ok(user);
 
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable long id) {
         userService.deleteUser(id);

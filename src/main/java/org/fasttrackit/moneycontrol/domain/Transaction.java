@@ -15,15 +15,19 @@ public class Transaction {
 
     private Long id;
 
-    // aici nu imi trebuie asai un private long transactionId pt ca  clasa transaction are acelasi  care coicide
+    // aici NU imi trebuie asai un private long transactionId pt ca  clasa transaction are acelasi  care coicide
     // cu cel a userului si a bugetului doar cand fac o noua transactie aia sa primeasca un
-    // id. cum am pus in AddTransactionRequest. oare bine am inteles
-  @ManyToOne
+    // id. cum am pus in AddTransactionRequest. oare bine am inteles?
+
+
+    //  aici nu is sigura daca are sens sa creez si eu o clasa producservice in cazul aplicatiei online shopping
+    //  ziceai ca o sa avem erori cu hibernate Lazy initionalize  ca in Produc avem relatia aia cu un cart care trebuie tratada cu dto ul ,
+    // nu ma intereseaza pt fiecare produc in parte
+    @ManyToOne
     @MapsId
     private User user;
 
     @NotNull
-    // type can be pay  money or add money.
     private String type;
 
     @NotNull
@@ -41,7 +45,7 @@ public class Transaction {
     @NotNull
     private String description;
 
-    @ManyToMany(mappedBy = "transaction")
+    @ManyToMany(mappedBy = "transactions")
     private Set<Budget> budget = new HashSet<>();
 
 
@@ -57,7 +61,7 @@ public class Transaction {
         this.budget = budget;
     }
 
-     public String getFrom() {
+    public String getFrom() {
         return from;
     }
 
@@ -80,7 +84,6 @@ public class Transaction {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
 
     public long getId() {

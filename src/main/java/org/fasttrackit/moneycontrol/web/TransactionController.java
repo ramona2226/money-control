@@ -33,15 +33,16 @@ public class TransactionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Transaction> readTransaction(@PathVariable long id){
+    public ResponseEntity<Transaction> readTransaction(@PathVariable long id) {
         Transaction transaction = transactionService.getTransaction(id);
         return ResponseEntity.ok(transaction);
 
     }
-        @DeleteMapping("/{id}")
-    public ResponseEntity<Transaction> deleteTransaction(@PathVariable long id) {
-         transactionService.deleteTransaction(id);
 
-    return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Transaction> deleteTransaction(@PathVariable long id) {
+        transactionService.deleteTransaction(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

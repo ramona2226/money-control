@@ -29,7 +29,6 @@ public class UserServiceIntegrationTests {
     }
 
 
-
     @Test
     public void createUser_whenMissingFirstName_then_ThrowException() {
         SaveUserRequest request = new SaveUserRequest();
@@ -37,7 +36,7 @@ public class UserServiceIntegrationTests {
         request.setLastName("Test Last Name");
 
 
-        Exception exception =  null;
+        Exception exception = null;
 
         try {
             userService.createUser(request);
@@ -48,10 +47,11 @@ public class UserServiceIntegrationTests {
 
 
         assertThat(exception, notNullValue());
-        assertThat("Unexpected exception type.",exception instanceof TransactionSystemException);
+        assertThat("Unexpected exception type.", exception instanceof TransactionSystemException);
 
 
     }
+
     @Test
     public void getUser_whenExistingUser_thenReturnUser() {
         User createdUser = createUser();
@@ -65,11 +65,12 @@ public class UserServiceIntegrationTests {
 
 
     }
+
     @Test
     //negative test
-    public void getUser_whenNonExistingUser_thenThrowResourceNotFoundException(){
+    public void getUser_whenNonExistingUser_thenThrowResourceNotFoundException() {
 
-        Assertions.assertThrows(ResourceNotFoundException.class, () ->userService.getUser(999999));
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> userService.getUser(999999));
 
 
     }
@@ -102,7 +103,7 @@ public class UserServiceIntegrationTests {
     }
 
 
-        private User createUser() {
+    private User createUser() {
         SaveUserRequest request = new SaveUserRequest();
         request.setFirstName("Test First Name");
         request.setLastName("Test Last Name");

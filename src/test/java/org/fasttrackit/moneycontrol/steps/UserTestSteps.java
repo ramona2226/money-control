@@ -1,7 +1,6 @@
 package org.fasttrackit.moneycontrol.steps;
 
 import org.fasttrackit.moneycontrol.domain.User;
-import org.fasttrackit.moneycontrol.service.BudgetService;
 import org.fasttrackit.moneycontrol.service.UserService;
 import org.fasttrackit.moneycontrol.transfer.user.SaveUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,29 +16,28 @@ import static org.hamcrest.Matchers.greaterThan;
 public class UserTestSteps {
 
 
-
-        @Autowired
-        private UserService userService;
-
-
-        public User createUser() {
-            SaveUserRequest request = new SaveUserRequest();
-            request.setFirstName("Test First Name");
-            request.setLastName("Test Last Name");
+    @Autowired
+    private UserService userService;
 
 
-            User user = userService.createUser(request);
-
-            assertThat(user, notNullValue());
-            assertThat(user.getId(), greaterThan(0L));
-            assertThat(user.getFirstName(), is(request.getFirstName()));
-            assertThat(user.getLastName(), is(request.getLastName()));
-
-            return user;
-        }
+    public User createUser() {
+        SaveUserRequest request = new SaveUserRequest();
+        request.setFirstName("Test First Name");
+        request.setLastName("Test Last Name");
 
 
+        User user = userService.createUser(request);
+
+        assertThat(user, notNullValue());
+        assertThat(user.getId(), greaterThan(0L));
+        assertThat(user.getFirstName(), is(request.getFirstName()));
+        assertThat(user.getLastName(), is(request.getLastName()));
+
+        return user;
     }
+
+
+}
 
 
 

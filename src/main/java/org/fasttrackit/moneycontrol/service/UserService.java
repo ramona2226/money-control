@@ -14,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
-
 @Service
 public class UserService {
 
@@ -62,9 +61,9 @@ public class UserService {
                 request.getPartialFirstName(), request.getPartialLastName(), pageable);
     }
 
-    public User updateUser(long id, SaveUserRequest request){
+    public User updateUser(long id, SaveUserRequest request) {
 
-            LOGGER.info("Updating user {}: {}", id, request);
+        LOGGER.info("Updating user {}: {}", id, request);
 
 
         User existingUser = getUser(id);
@@ -73,6 +72,7 @@ public class UserService {
         return userRepository.save(existingUser);
 
     }
+
     public void deleteUser(long id) {
         LOGGER.info("Deleting user {} ", id);
         userRepository.deleteById(id);

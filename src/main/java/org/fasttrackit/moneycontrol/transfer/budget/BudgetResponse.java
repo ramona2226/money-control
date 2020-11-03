@@ -1,21 +1,19 @@
 package org.fasttrackit.moneycontrol.transfer.budget;
 
-import javax.validation.constraints.NotNull;
-import java.util.HashSet;
 import java.util.Set;
 
 public class BudgetResponse {
 
-    @NotNull
-     private long Id;
-private Set<TransactionInBudget> transactions ;
-    @NotNull
+
+    private long Id;
+    private Set<TransactionInBudget> transactions;
+
     double balance;
 
-    @NotNull
-    String valuteName;
 
-private String answer;
+    private String valuteName;
+
+    private String answer;
 
     public long getId() {
         return Id;
