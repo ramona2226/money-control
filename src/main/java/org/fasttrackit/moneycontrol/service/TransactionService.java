@@ -68,13 +68,13 @@ public class TransactionService {
 
 
 // oare aici e de inteles ca doar transactia facuta se salveaza nu si cea eronata asai?
-               Transaction saveTransaction = transactionRepository.save(transaction);
+                Transaction saveTransaction = transactionRepository.save(transaction);
 
-               TransactionResponse transactionResponse = new TransactionResponse();
-               transactionResponse.setId(saveTransaction.getId());
+                TransactionResponse transactionResponse = new TransactionResponse();
+                transactionResponse.setId(saveTransaction.getId());
                 transactionResponse.setType(saveTransaction.getType());
                 transactionResponse.setFrom(saveTransaction.getFrom());
-               transactionResponse.setTo(saveTransaction.getTo());
+                transactionResponse.setTo(saveTransaction.getTo());
                 transactionResponse.setAmount(saveTransaction.getAmount());
                 transactionResponse.setDate(saveTransaction.getDate());
                 transactionResponse.setDescription(saveTransaction.getDescription());
@@ -82,8 +82,9 @@ public class TransactionService {
             }
 
 
+        }
+        return ;
     }
-
 
     public Transaction getTransaction(long id) {
         LOGGER.info("Retrieving transaction{}", id);
