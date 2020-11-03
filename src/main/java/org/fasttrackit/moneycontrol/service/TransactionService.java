@@ -1,8 +1,8 @@
 package org.fasttrackit.moneycontrol.service;
 
+import org.fasttrackit.moneycontrol.domain.Budget;
 import org.fasttrackit.moneycontrol.domain.Transaction;
 import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
-import org.fasttrackit.moneycontrol.persistance.BudgetRepository;
 import org.fasttrackit.moneycontrol.persistance.TransactionRepository;
 import org.fasttrackit.moneycontrol.transfer.budget.SaveBudgetRequest;
 import org.slf4j.Logger;
@@ -19,10 +19,13 @@ public class TransactionService {
     private static final Logger LOGGER = LoggerFactory.getLogger(TransactionService.class);
 
     public final TransactionRepository transactionRepository;
+    public final Budget budget;
 
     @Autowired
-    public TransactionService(TransactionRepository transactionRepository) {
+    public TransactionService(TransactionRepository transactionRepository, BudgetService budgetService, Budget budget) {
         this.transactionRepository = transactionRepository;
+
+        this.budget = budget;
     }
 
     @Transactional
@@ -49,9 +52,8 @@ public class TransactionService {
 
             if (transaction.getType() == "add") {
                 LOGGER.info("Today it`s a happy day! You recive some money.");
-                // inca ma mai gandesc cum ajung la  proprietatea balance a budgetului ca sa continui conditia si apoi o sa o dezomentez
-                // } else if (transaction.getType() == "payment" && BudgetRepository.getbalance == 0) {
-                //  LOGGER.info("Unsuccesfull transaction. You dont`t have enough money to make a payment." );
+                 } else if (transaction.getType() == "payment" && budget.getBalance() == 0) {
+                 LOGGER.info("Unsuccesfull transaction. You dont`t have enough money to make a payment." );
 
 
                 // stiu ca  o sa razi  la faza asta dar..

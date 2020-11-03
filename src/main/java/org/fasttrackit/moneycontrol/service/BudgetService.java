@@ -7,6 +7,7 @@ import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.BudgetRepository;
 import org.fasttrackit.moneycontrol.transfer.budget.BudgetResponse;
 import org.fasttrackit.moneycontrol.transfer.budget.SaveBudgetRequest;
+import org.fasttrackit.moneycontrol.transfer.budget.TransactionInBudget;
 import org.fasttrackit.moneycontrol.transfer.transaction.AddTransactionRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
-
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Service
@@ -25,12 +27,13 @@ public class BudgetService {
     @Autowired
     public final BudgetRepository budgetRepository;
     public final UserService userService;
+public final TransactionService transactionService;
 
-
-    public BudgetService(BudgetRepository budgetRepository, UserService userService) {
+    public BudgetService(BudgetRepository budgetRepository, UserService userService, TransactionService transactionService) {
         this.budgetRepository = budgetRepository;
         this.userService = userService;
-}
+        this.transactionService = transactionService;
+    }
 
 public Budget addBudget(AddTransactionRequest request) {
 
@@ -44,6 +47,10 @@ public Budget addBudget(AddTransactionRequest request) {
             budget.setUser(user);
 
         }
+  Transaction transaction = transactionService.getTransaction(request.getTransactionId());
+        budget.addTransaction(transaction);
+
+
         // add product to card
 return  budgetRepository.save(budget);
 
@@ -60,6 +67,23 @@ return  budgetRepository.save(budget);
 
         BudgetResponse budgetResponse = new BudgetResponse();
         budgetResponse.setId(buget.getId());
+
+        Set<TransactionInBudget> transactions = new HashSet<>();
+
+        for (Transaction transaction : buget.getTransactions()) {
+            TransactionInBudget transactionInBudget = new TransactionInBudget();
+            transactionInBudget.setId(transaction.getId());
+            transaction.setType(transaction.getType());
+            transactionInBudget.setAmount(transaction.getAmount());
+            transactionInBudget.setDate(transaction.getDate());
+
+            transactions.add(transactionInBudget);
+        }
+
+
+
+        budgetResponse.setTransactions(transactions);
+
         return budgetResponse;
 
     }

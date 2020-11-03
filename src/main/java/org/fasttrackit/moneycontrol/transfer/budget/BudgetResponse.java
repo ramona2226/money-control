@@ -1,12 +1,14 @@
 package org.fasttrackit.moneycontrol.transfer.budget;
 
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BudgetResponse {
 
     @NotNull
      private long Id;
-
+private Set<TransactionInBudget> transactions ;
     @NotNull
     double balance;
 
@@ -21,6 +23,14 @@ private String answer;
 
     public void setId(long userId) {
         this.Id = userId;
+    }
+
+    public void setTransactions(Set<TransactionInBudget> transactions) {
+        this.transactions = transactions;
+    }
+
+    public Set<TransactionInBudget> getTransactions() {
+        return transactions;
     }
 
     public double getBalance() {
@@ -50,7 +60,8 @@ private String answer;
     @Override
     public String toString() {
         return "BudgetResponse{" +
-                "userId=" + Id +
+                "Id=" + Id +
+                ", transactions=" + transactions +
                 ", balance=" + balance +
                 ", valuteName='" + valuteName + '\'' +
                 ", answer='" + answer + '\'' +

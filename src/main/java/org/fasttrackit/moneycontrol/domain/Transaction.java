@@ -13,9 +13,11 @@ public class Transaction {
     @Id
     @GeneratedValue
 
-    private long id;
+    private Long id;
 
-
+    // aici nu imi trebuie asai un private long transactionId pt ca  clasa transaction are acelasi  care coicide
+    // cu cel a userului si a bugetului doar cand fac o noua transactie aia sa primeasca un
+    // id. cum am pus in AddTransactionRequest. oare bine am inteles
   @ManyToOne
     @MapsId
     private User user;
@@ -41,6 +43,7 @@ public class Transaction {
 
     @ManyToMany(mappedBy = "transaction")
     private Set<Budget> budget = new HashSet<>();
+
 
     public void setAmount(Double amount) {
         this.amount = amount;
@@ -133,6 +136,7 @@ public class Transaction {
 
     @Override
     public int hashCode() {
+
         return (int) (id ^ (id >>> 32));
     }
 
@@ -140,12 +144,13 @@ public class Transaction {
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
+                ", user=" + user +
                 ", type='" + type + '\'' +
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +
                 ", amount=" + amount +
-                ", description='" + description + '\'' +
                 ", date=" + date +
+                ", description='" + description + '\'' +
                 '}';
     }
 

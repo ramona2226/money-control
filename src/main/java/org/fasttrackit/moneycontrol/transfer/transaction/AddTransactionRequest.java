@@ -11,6 +11,9 @@ public class AddTransactionRequest {
     long userId;
 
     @NotNull
+    private Long transactionId;
+
+    @NotNull
     // type can be pay  money or add money.
     private String type;
 
@@ -35,6 +38,10 @@ public class AddTransactionRequest {
     public void setUserId(long userId) {
         this.userId = userId;
     }
+
+    public Long getTransactionId() { return transactionId;    }
+
+    public void setTransactionId(Long transactionId) { this.transactionId = transactionId;    }
 
     public String getType() {
         return type;
@@ -88,6 +95,7 @@ public class AddTransactionRequest {
     public String toString() {
         return "AddTransactionRequest{" +
                 "userId=" + userId +
+                ", transactionId=" + transactionId +
                 ", type='" + type + '\'' +
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +

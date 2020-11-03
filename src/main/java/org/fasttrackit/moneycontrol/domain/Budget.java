@@ -17,20 +17,29 @@ public class Budget{
     @MapsId
     private User user;
 
+    private double balance;
+
 // un budget poate sa aiba mai multe transactii
 //aceasi transactie poate sa existe in mai multe bugete;
 // DE EX un abonament la Netflix poate sa aiba aceasi transactie de la mai multi clienti.
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "budget_transaction",
     joinColumns = @JoinColumn(name = "budget_id"),
             inverseJoinColumns = @JoinColumn(name = "transaction_id"))
-
     private Set<Transaction> transactions = new HashSet<>();
 
+    public void addTransaction(Transaction transaction) {
+        transactions.add(transaction);
 
-    private double balance;
+transaction.getBudget().add(this);
+    }
+
+    public void removeTransaction(Transaction transaction) {
+        transactions.remove(transaction);
+        transaction.getBudget().remove(this);
+    }
 
 @NotNull
     private  String valuteName;
@@ -81,6 +90,22 @@ public class Budget{
 
     public void setValuteName(String valuteName) {
         this.valuteName = valuteName;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Budget budget = (Budget) o;
+
+        return id == budget.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 
     @Override
