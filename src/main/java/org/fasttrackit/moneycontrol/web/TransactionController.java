@@ -3,6 +3,7 @@ package org.fasttrackit.moneycontrol.web;
 import org.fasttrackit.moneycontrol.domain.Transaction;
 import org.fasttrackit.moneycontrol.service.TransactionService;
 import org.fasttrackit.moneycontrol.transfer.budget.SaveBudgetRequest;
+import org.fasttrackit.moneycontrol.transfer.transaction.TransactionResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class TransactionController {
 
     @PostMapping
     public ResponseEntity<Transaction> createTransaction(@RequestBody @Valid SaveBudgetRequest request) {
-        Transaction transaction = transactionService.createTransaction(request);
+        TransactionResponse transaction = transactionService.createTransaction(request);
         return new ResponseEntity<>(transaction, HttpStatus.CREATED);
 
     }

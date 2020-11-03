@@ -8,7 +8,9 @@ public class BudgetResponse {
     private long Id;
     private Set<TransactionInBudget> transactions;
 
-    double balance;
+
+
+    private double balance;
 
 
     private String valuteName;

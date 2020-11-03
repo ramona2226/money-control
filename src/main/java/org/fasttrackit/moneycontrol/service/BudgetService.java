@@ -11,7 +11,6 @@ import org.fasttrackit.moneycontrol.transfer.budget.TransactionInBudget;
 import org.fasttrackit.moneycontrol.transfer.transaction.AddTransactionRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +37,8 @@ public class BudgetService {
         this.transactionService = transactionService;
         this.budget = budget;
     }
-
-    public Budget addBudget(AddTransactionRequest request) {
+@Transactional
+    public void addBudget(AddTransactionRequest request) {
 
         LOGGER.info("Adding money to my budget: {}", request);
 
@@ -52,11 +51,11 @@ public class BudgetService {
 
         }
         Transaction transaction = transactionService.getTransaction(request.getTransactionId());
+
         budget.addTransaction(transaction);
 
-
         // add product to card
-        return budgetRepository.save(budget);
+        budgetRepository.save(budget);
 
     }
 
@@ -91,24 +90,24 @@ public class BudgetService {
 
     }
 
-    public Budget updateBudget(long id, Transaction lastTransaction, SaveBudgetRequest request) {
-        double newBalance;
-
-        LOGGER.info("Updating budget {}: {} {}", id, lastTransaction, request);
-
-        BudgetResponse budget = getBudget(id);
-        double existingBalance = budget.getBalance();
-        BeanUtils.copyProperties(request, existingBalance);
-
-
-      newBalance =  existingBalance + lastTransaction.getAmount();
-
-
-
-        return  BudgetRepository.save(budget);
-
-
-    }
+//    public Budget updateBudget(long id, Transaction lastTransaction, SaveBudgetRequest request) {
+//        double newBalance;
+//
+//        LOGGER.info("Updating budget {}: {} {}", id, lastTransaction, request);
+//
+//        BudgetResponse budget = getBudget(id);
+//        double existingBalance = budget.getBalance();
+//        BeanUtils.copyProperties(request, existingBalance);
+//
+//
+//      newBalance =  existingBalance + lastTransaction.getAmount();
+//
+//
+//
+//        return  BudgetRepository.save(budget);
+//
+//
+//    }
 
 
     public void deleteBudget(long id) {
