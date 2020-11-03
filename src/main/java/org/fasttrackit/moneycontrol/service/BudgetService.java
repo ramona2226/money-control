@@ -6,19 +6,22 @@ import org.fasttrackit.moneycontrol.domain.User;
 import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.BudgetRepository;
 import org.fasttrackit.moneycontrol.transfer.budget.BudgetResponse;
+import org.fasttrackit.moneycontrol.transfer.budget.SaveBudgetRequest;
 import org.fasttrackit.moneycontrol.transfer.budget.TransactionInBudget;
 import org.fasttrackit.moneycontrol.transfer.transaction.AddTransactionRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 
-@SuppressWarnings("ALL")
+
 @Service
 public class BudgetService {
 
@@ -28,14 +31,14 @@ public class BudgetService {
     public final BudgetRepository budgetRepository;
     public final UserService userService;
     public final TransactionService transactionService;
-    public final Budget budget;
 
 
-    public BudgetService(BudgetRepository budgetRepository, UserService userService, TransactionService transactionService, Budget budget) {
+
+    public BudgetService(BudgetRepository budgetRepository, UserService userService, TransactionService transactionService) {
         this.budgetRepository = budgetRepository;
         this.userService = userService;
         this.transactionService = transactionService;
-        this.budget = budget;
+
     }
 
     @Transactional
@@ -92,26 +95,23 @@ public class BudgetService {
 
     }
 
-//    public Budget updateBudget(long id, Transaction lastTransaction, SaveBudgetRequest request) {
-//       double newBalance;
-//
-//        LOGGER.info("Updating budget {}: {} {}", id, lastTransaction, request);
-//
-//        BudgetResponse budget = getBudget(id);
-//        double existingBalance = budget.getBalance();
-//        BeanUtils.copyProperties(request, existingBalance);
-//
-//       newBalance = existingBalance + lastTransaction.getAmount();
-//
-//
-//
-//        return  BudgetRepository.save(budget);
-//
-//
-//    }
+    public Budget updateBudget(long userId, Transaction amount, SaveBudgetRequest request) {
+        LOGGER.info("Updating budget {}:  {} {}", userId, amount, request);
+
+        Budget buget = budgetRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Budget" + userId + "does not exist"));
 
 
-    public void deleteBudget(long id) {
+        BudgetResponse budgetResponse = new BudgetResponse();
+        budgetResponse.setId(userId);
+        budgetResponse.setBalance(amount);
+
+    budgetResponse.setBalance(amount);
+
+            return updateBudget(userId,amount,request);
+        }
+
+        public void deleteBudget(long id) {
         LOGGER.info("Deleting user {} ", id);
         budgetRepository.deleteById(id);
     }

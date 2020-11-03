@@ -8,13 +8,12 @@ public class AddTransactionRequest {
 
 
     @NotNull
-    long userId;
+    private Long userId;
 
     @NotNull
     private Long transactionId;
 
     @NotNull
-    // type can be pay  money or add money.
     private String type;
 
     @NotNull
@@ -31,11 +30,21 @@ public class AddTransactionRequest {
     @NotNull
     private String description;
 
-    public long getUserId() {
+    private Double userBalance;
+
+    public Double getUserBalance() {
+        return userBalance;
+    }
+
+    public void setUserBalance(Double userBalance) {
+        this.userBalance = userBalance;
+    }
+
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -106,6 +115,7 @@ public class AddTransactionRequest {
                 ", amount=" + amount +
                 ", date=" + date +
                 ", description='" + description + '\'' +
+                ", userBalance=" + userBalance +
                 '}';
     }
 }

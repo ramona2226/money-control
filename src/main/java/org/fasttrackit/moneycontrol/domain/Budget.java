@@ -10,7 +10,6 @@ import java.util.Set;
 public class Budget {
 
     @Id
-
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -18,6 +17,9 @@ public class Budget {
     private User user;
 
     private double balance;
+
+    @NotNull
+    private String valuteName;
 
 // un budget poate sa aiba mai multe transactii
 //aceasi transactie poate sa existe in mai multe bugete;
@@ -41,8 +43,7 @@ public class Budget {
         transaction.getBudget().remove(this);
     }
 
-    @NotNull
-    private String valuteName;
+
 
     public Set<Transaction> getTransactions() {
         return transactions;

@@ -15,14 +15,6 @@ public class Transaction {
 
     private Long id;
 
-    // aici NU imi trebuie asai un private long transactionId pt ca  clasa transaction are acelasi  care coicide
-    // cu cel a userului si a bugetului doar cand fac o noua transactie aia sa primeasca un
-    // id. cum am pus in AddTransactionRequest. oare bine am inteles?
-
-
-    //  aici nu is sigura daca are sens sa creez si eu o clasa producservice in cazul aplicatiei online shopping
-    //  ziceai ca o sa avem erori cu hibernate Lazy initionalize  ca in Produc avem relatia aia cu un cart care trebuie tratada cu dto ul ,
-    // nu ma intereseaza pt fiecare produc in parte
     @ManyToOne
     @MapsId
     private User user;

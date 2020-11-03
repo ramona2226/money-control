@@ -1,5 +1,7 @@
 package org.fasttrackit.moneycontrol.transfer.budget;
 
+import org.fasttrackit.moneycontrol.domain.Transaction;
+
 import java.util.Set;
 
 public class BudgetResponse {
@@ -8,7 +10,7 @@ public class BudgetResponse {
     private long Id;
     private Set<TransactionInBudget> transactions;
 
-    private double balance;
+    private Transaction balance;
 
     private String valuteName;
 
@@ -30,11 +32,11 @@ public class BudgetResponse {
         return transactions;
     }
 
-    public double getBalance() {
+    public Transaction getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(Transaction balance) {
         this.balance = balance;
     }
 
