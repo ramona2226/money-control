@@ -52,7 +52,7 @@ public class Budget {
         this.transactions = transactions;
     }
 
-    public double getBalance() {
+    public  double getBalance() {
         return balance;
     }
 

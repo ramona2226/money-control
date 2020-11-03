@@ -6,12 +6,23 @@ import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.TransactionRepository;
 import org.fasttrackit.moneycontrol.transfer.budget.SaveBudgetRequest;
 import org.fasttrackit.moneycontrol.transfer.transaction.AddTransactionRequest;
+import org.fasttrackit.moneycontrol.transfer.transaction.GetTransactionsRequest;
 import org.fasttrackit.moneycontrol.transfer.transaction.TransactionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+
+
+// aici mi-am pus suppressul pt beans la budget
 @SuppressWarnings("ALL")
 @Service
 public class TransactionService {
@@ -33,7 +44,7 @@ public class TransactionService {
         this.addTransactionRequest = addTransactionRequest;
     }
 
-    //  @Transactional
+   @Transactional
     public TransactionResponse createTransaction(SaveBudgetRequest request) {
         LOGGER.info("Creating Transaction: {}", request);
         Transaction transaction = new Transaction();
@@ -76,18 +87,6 @@ public class TransactionService {
         return mapTransactionResponse(saveTransaction);
     }
 
-    private TransactionResponse mapTransactionResponse(Transaction transaction) {
-        TransactionResponse transactionResponse = new TransactionResponse();
-        transactionResponse.setId(transaction.getId());
-        transactionResponse.setType(transaction.getType());
-        transactionResponse.setFrom(transaction.getFrom());
-        transactionResponse.setTo(transaction.getTo());
-        transactionResponse.setAmount(transaction.getAmount());
-        transactionResponse.setDate(transaction.getDate());
-        transactionResponse.setDescription(transaction.getDescription());
-
-        return transactionResponse;
-    }
 
     // nu o folosesc din Controller pt ca imi va genera erori.
     public Transaction getTransaction(long id) {
@@ -99,12 +98,53 @@ public class TransactionService {
         return transaction;
     }
 
+     public TransactionResponse getTransactionResponse(long id) {
+         Transaction transaction = getTransaction(id);
+
+         return mapTransactionResponse(transaction);
+
+
+     }
+
 
     public void deleteTransaction(long id) {
         LOGGER.info("Delete transaction{}", id);
 
         transactionRepository.deleteById(id);
+    }
+ // Query by Example
+    public Page<TransactionResponse> getTransactions(GetTransactionsRequest request, Pageable pageable) {
+        LOGGER.info("Retriving transactions: {}", request);
+Transaction exampleTransaction = new Transaction();
+exampleTransaction.setType(request.getType());
+exampleTransaction.setDate(request.getDate());
+exampleTransaction.setBudget(null);
 
+// exact match
+        Example<Transaction> example = Example.of(exampleTransaction);
+        Page<Transaction> transactionsPage = transactionRepository.findAll(example, pageable);
+
+        List<TransactionResponse> transactionsDtos = new ArrayList<>();
+
+        for (Transaction transaction : transactionsPage.getContent()) {
+            TransactionResponse transactionResponse = mapTransactionResponse(transaction);
+             transactionsDtos.add(transactionResponse);
+        }
+
+        return new PageImpl<>(transactionsDtos, pageable, transactionsPage.getTotalElements());
+
+    }
+    private TransactionResponse mapTransactionResponse(Transaction transaction) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        transactionResponse.setId(transaction.getId());
+        transactionResponse.setType(transaction.getType());
+        transactionResponse.setFrom(transaction.getFrom());
+        transactionResponse.setTo(transaction.getTo());
+        transactionResponse.setAmount(transaction.getAmount());
+        transactionResponse.setDate(transaction.getDate());
+        transactionResponse.setDescription(transaction.getDescription());
+
+        return transactionResponse;
     }
 
 }

@@ -6,7 +6,6 @@ import org.fasttrackit.moneycontrol.domain.User;
 import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.BudgetRepository;
 import org.fasttrackit.moneycontrol.transfer.budget.BudgetResponse;
-import org.fasttrackit.moneycontrol.transfer.budget.SaveBudgetRequest;
 import org.fasttrackit.moneycontrol.transfer.budget.TransactionInBudget;
 import org.fasttrackit.moneycontrol.transfer.transaction.AddTransactionRequest;
 import org.slf4j.Logger;
@@ -19,6 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+@SuppressWarnings("ALL")
 @Service
 public class BudgetService {
 
@@ -37,8 +37,9 @@ public class BudgetService {
         this.transactionService = transactionService;
         this.budget = budget;
     }
-@Transactional
-    public void addBudget(AddTransactionRequest request) {
+
+    @Transactional
+    public Budget addBudget(AddTransactionRequest request) {
 
         LOGGER.info("Adding money to my budget: {}", request);
 
@@ -57,6 +58,7 @@ public class BudgetService {
         // add product to card
         budgetRepository.save(budget);
 
+        return budget;
     }
 
     @Transactional
@@ -91,7 +93,7 @@ public class BudgetService {
     }
 
 //    public Budget updateBudget(long id, Transaction lastTransaction, SaveBudgetRequest request) {
-//        double newBalance;
+//       double newBalance;
 //
 //        LOGGER.info("Updating budget {}: {} {}", id, lastTransaction, request);
 //
@@ -99,8 +101,7 @@ public class BudgetService {
 //        double existingBalance = budget.getBalance();
 //        BeanUtils.copyProperties(request, existingBalance);
 //
-//
-//      newBalance =  existingBalance + lastTransaction.getAmount();
+//       newBalance = existingBalance + lastTransaction.getAmount();
 //
 //
 //

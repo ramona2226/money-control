@@ -34,6 +34,7 @@ public class BudgetController {
 
     }
 
+
     @PutMapping
     public ResponseEntity<Budget> addTransaction(@RequestBody @Valid AddTransactionRequest request) {
         Budget budget = budgetService.addBudget(request);

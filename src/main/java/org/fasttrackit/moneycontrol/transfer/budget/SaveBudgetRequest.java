@@ -1,6 +1,6 @@
 package org.fasttrackit.moneycontrol.transfer.budget;
 
-import javax.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 
 public class SaveBudgetRequest {
