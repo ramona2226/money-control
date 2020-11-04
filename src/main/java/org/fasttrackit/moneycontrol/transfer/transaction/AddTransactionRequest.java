@@ -6,64 +6,20 @@ import java.time.LocalDate;
 
 public class AddTransactionRequest {
 
-
-    @NotNull
-   private Long userId;
-
-   @NotNull
-   private Long transactionId;
-
-    @NotNull
-    private String type;
-
     @NotNull
     private String from;
 
     @NotNull
     private String to;
-@NotNull
-    private double amount;
 
+    @NotNull
+    private double amount;
 
     @NotNull
     private LocalDate date;
 
     @NotNull
     private String description;
-
-    private Double userBalance;
-
-    public Double getUserBalance() {
-        return userBalance;
-    }
-
-    public void setUserBalance(Double userBalance) {
-        this.userBalance = userBalance;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(Long transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getFrom() {
         return from;
@@ -108,15 +64,14 @@ public class AddTransactionRequest {
     @Override
     public String toString() {
         return "AddTransactionRequest{" +
-                "userId=" + userId +
-                ", transactionId=" + transactionId +
-                ", type='" + type + '\'' +
+              //  "userId=" + userId +
+                //", transactionId=" + transactionId +
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +
                 ", amount=" + amount +
                 ", date=" + date +
                 ", description='" + description + '\'' +
-                ", userBalance=" + userBalance +
+                //", userBalance=" + userBalance +
                 '}';
     }
 }

@@ -36,6 +36,7 @@ public class UserService {
         User user = new User();
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
+//        user.setBalance(0);
 
         return userRepository.save(user);
 
@@ -70,6 +71,11 @@ public class UserService {
         BeanUtils.copyProperties(request, existingUser);
 
         return userRepository.save(existingUser);
+
+    }
+    public User update(User user) {
+
+        return userRepository.save(user);
 
     }
 

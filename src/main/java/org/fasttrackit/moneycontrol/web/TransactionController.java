@@ -30,32 +30,15 @@ public class TransactionController {
     }
 
 
-    @PostMapping
-    public ResponseEntity<TransactionResponse> createTransaction(@RequestBody @Valid AddTransactionRequest request) {
-        TransactionResponse transaction = transactionService.createTransaction(request);
+    @PostMapping("/{userId}")
+    public ResponseEntity<TransactionResponse> createTransaction(@PathVariable long userId, @RequestBody @Valid AddTransactionRequest request) {
+        TransactionResponse transaction = transactionService.createTransaction(userId, request);
         return new ResponseEntity<>(transaction, HttpStatus.CREATED);
-
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Transaction> getTransaction(@PathVariable long id) {
-        Transaction transaction = transactionService.getTransaction(id);
-        return new ResponseEntity<>(transaction, HttpStatus.OK);
-
-    }
-
-
-    @GetMapping
-    public ResponseEntity<Page<TransactionResponse>> getTransactions(GetTransactionsRequest request, Pageable pageable) {
-      Page<TransactionResponse> transactions = transactionService.getTransactions(request, pageable);
+    @GetMapping("/{userId}")
+    public ResponseEntity<Page<TransactionResponse>> getTransactions(@PathVariable long userId, Pageable pageable) {
+       Page<TransactionResponse> transactions = transactionService.getTransactionsByUserId(userId, pageable);
         return new ResponseEntity<>(transactions, HttpStatus.OK);
-    }
-
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Transaction> deleteTransaction(@PathVariable long id) {
-        transactionService.deleteTransaction(id);
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

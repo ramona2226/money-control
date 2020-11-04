@@ -15,12 +15,9 @@ public class Transaction {
 
     private Long id;
 
-    @ManyToOne
+    @ManyToOne //CascadeType.MERGE
     @MapsId
     private User user;
-
-    @NotNull
-    private String type;
 
     @NotNull
     private String from;
@@ -37,20 +34,8 @@ public class Transaction {
     @NotNull
     private String description;
 
-    @ManyToMany(mappedBy = "transactions")
-    private Set<Budget> budget = new HashSet<>();
-
-
     public void setAmount(Double amount) {
         this.amount = amount;
-    }
-
-    public Set<Budget> getBudget() {
-        return budget;
-    }
-
-    public void setBudget(Set<Budget> budget) {
-        this.budget = budget;
     }
 
     public String getFrom() {
@@ -77,13 +62,8 @@ public class Transaction {
         this.description = description;
     }
 
-
-    public long getId() {
+    public Long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public double getAmount() {
@@ -96,14 +76,6 @@ public class Transaction {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public void setAmount(double amount) {
@@ -140,7 +112,6 @@ public class Transaction {
         return "Transaction{" +
                 "id=" + id +
                 ", user=" + user +
-                ", type='" + type + '\'' +
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +
                 ", amount=" + amount +

@@ -12,19 +12,16 @@ public class User {
     @GeneratedValue
     private long id;
 
-
     @NotNull
     private String firstName;
 
     @NotNull
     private String lastName;
 
+    private double balance;
+
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -41,6 +38,14 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
 
