@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 @Service
 public class TransactionService {
 
@@ -31,7 +30,6 @@ public class TransactionService {
     public final TransactionRepository transactionRepository;
     private final UserService userService;
     private final BudgetService budgetService;
-
 
 
     @Autowired
@@ -67,8 +65,6 @@ public class TransactionService {
         return mapTransactionResponse(saveTransaction);
 
     }
-
-
 
 
     // nu o folosesc din Controller pt ca imi va genera erori.

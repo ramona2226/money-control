@@ -1,12 +1,7 @@
 package org.fasttrackit.moneycontrol.domain;
 
-import org.fasttrackit.moneycontrol.service.BudgetService;
-import org.fasttrackit.moneycontrol.transfer.transaction.AddTransactionRequest;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Entity

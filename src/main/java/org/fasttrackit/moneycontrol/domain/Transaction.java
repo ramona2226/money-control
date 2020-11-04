@@ -37,7 +37,7 @@ public class Transaction {
     private String description;
 
     @ManyToMany(mappedBy = "transactions")
-     private Set<Budget> budget = new HashSet<>();
+    private Set<Budget> budget = new HashSet<>();
 
 
     public Set<Budget> getBudget() {

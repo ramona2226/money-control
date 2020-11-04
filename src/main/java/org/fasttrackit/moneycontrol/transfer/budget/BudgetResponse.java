@@ -9,7 +9,7 @@ public class BudgetResponse {
 
     private long Id;
 
-    private Transaction balance;
+    private double balance;
 
     private String valuteName;
 
@@ -22,11 +22,11 @@ public class BudgetResponse {
         this.Id = userId;
     }
 
-    public Transaction getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(Transaction balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
