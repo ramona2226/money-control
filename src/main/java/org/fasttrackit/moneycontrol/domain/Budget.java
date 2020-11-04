@@ -30,16 +30,16 @@ public class Budget {
 
     private Set<Transaction> transactions = new HashSet<>();
 
-    public void addTransaction(Transaction transaction) {
-        transactions.add(transaction);
+   // public void addTransaction(Transaction transaction) {
+        //transactions.add(transaction);
 
-        transaction.getBudget().add(this);
-    }
+       // transaction.getBudget().add(this);
+   //}
 
-    public void removeTransaction(Transaction transaction) {
-        transactions.remove(transaction);
-        transaction.getBudget().remove(this);
-    }
+//    public void removeTransaction(Transaction transaction) {
+//        transactions.remove(transaction);
+//        transaction.getBudget().remove(this);
+//    }
 
 
 

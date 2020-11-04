@@ -28,8 +28,7 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-
-    @PostMapping("/{Id}")
+    @PostMapping
     public ResponseEntity<TransactionResponse> createTransaction(@RequestBody @Valid AddTransactionRequest request) {
         TransactionResponse transaction = transactionService.createTransaction(request);
         return new ResponseEntity<>(transaction, HttpStatus.CREATED);

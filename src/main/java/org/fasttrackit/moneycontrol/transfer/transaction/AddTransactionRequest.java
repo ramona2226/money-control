@@ -26,16 +26,6 @@ public class AddTransactionRequest {
     @NotNull
     private String description;
 
-    private Double userBalance;
-
-    public Double getUserBalance() {
-        return userBalance;
-    }
-
-    public void setUserBalance(Double userBalance) {
-        this.userBalance = userBalance;
-    }
-
     public String getType() {
         return type;
     }
@@ -94,7 +84,6 @@ public class AddTransactionRequest {
                 ", amount=" + amount +
                 ", date=" + date +
                 ", description='" + description + '\'' +
-                ", userBalance=" + userBalance +
-                '}';
+                               '}';
     }
 }

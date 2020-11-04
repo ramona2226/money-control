@@ -26,27 +26,11 @@ public class BudgetController {
     }
 
 
-    @PutMapping("/{userId}") //id de user
-    public ResponseEntity<Budget> addTransaction(@PathVariable long userId, @RequestBody @Valid double request) {
-        Budget budget = budgetService.updateBudget(userId, request);
-
-        return ResponseEntity.ok(budget);
-
-    }
-
     @GetMapping("/{userId}")
     public ResponseEntity<BudgetResponse> getBudget(@PathVariable long userId) {
         BudgetResponse budget = budgetService.getBudget(userId);
 
         return ResponseEntity.ok(budget);
-    }
-
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Budget> deleteBudget(@PathVariable long id) {
-        budgetService.deleteBudget(id);
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
 
