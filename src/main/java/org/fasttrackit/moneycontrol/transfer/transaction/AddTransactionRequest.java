@@ -26,6 +26,10 @@ public class AddTransactionRequest {
     @NotNull
     private String description;
 
+    @NotNull
+    private Long UserId;
+
+
     public String getType() {
         return type;
     }
@@ -75,6 +79,12 @@ public class AddTransactionRequest {
         this.date = date;
     }
 
+    public Long getUserId() { return UserId;
+    }
+
+    public void setUserId(Long userId) {  UserId = userId;
+    }
+
     @Override
     public String toString() {
         return "AddTransactionRequest{" +
@@ -84,6 +94,7 @@ public class AddTransactionRequest {
                 ", amount=" + amount +
                 ", date=" + date +
                 ", description='" + description + '\'' +
-                               '}';
+                ", UserId=" + UserId +
+                '}';
     }
 }

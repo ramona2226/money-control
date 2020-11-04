@@ -1,6 +1,7 @@
 package org.fasttrackit.moneycontrol.service;
 
 import org.fasttrackit.moneycontrol.domain.Transaction;
+import org.fasttrackit.moneycontrol.domain.User;
 import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.TransactionRepository;
 import org.fasttrackit.moneycontrol.transfer.transaction.AddTransactionRequest;
@@ -28,14 +29,18 @@ public class TransactionService {
     private static final Logger LOGGER = LoggerFactory.getLogger(TransactionService.class);
 
     public final TransactionRepository transactionRepository;
+    private final UserService userService;
+    private final BudgetService budgetService;
 
 
 
     @Autowired
 
-    public TransactionService(TransactionRepository transactionRepository) {
+    public TransactionService(TransactionRepository transactionRepository, UserService userService, BudgetService budgetService) {
         this.transactionRepository = transactionRepository;
+        this.userService = userService;
 
+        this.budgetService = budgetService;
     }
 
     @Transactional
@@ -44,6 +49,9 @@ public class TransactionService {
         Transaction transaction = new Transaction();
 
 
+        User user = userService.getUser(request.getUserId());
+
+        transaction.setUser(user);
         transaction.setType(request.getType());
         transaction.setFrom(request.getFrom());
         transaction.setTo(request.getTo());
@@ -53,6 +61,8 @@ public class TransactionService {
 
 
         Transaction saveTransaction = transactionRepository.save(transaction);
+
+        budgetService.updateBudget(request.getUserId(), saveTransaction.getAmount());
 
         return mapTransactionResponse(saveTransaction);
 
@@ -92,7 +102,7 @@ public class TransactionService {
         Transaction exampleTransaction = new Transaction();
         exampleTransaction.setType(request.getType());
         exampleTransaction.setDate(request.getDate());
-        exampleTransaction.setBudget(null);
+
 
 // exact match
         Example<Transaction> example = Example.of(exampleTransaction);
@@ -118,6 +128,7 @@ public class TransactionService {
         transactionResponse.setAmount(transaction.getAmount());
         transactionResponse.setDate(transaction.getDate());
         transactionResponse.setDescription(transaction.getDescription());
+
 
         return transactionResponse;
     }

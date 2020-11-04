@@ -7,7 +7,6 @@ import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.BudgetRepository;
 import org.fasttrackit.moneycontrol.transfer.budget.BudgetResponse;
 import org.fasttrackit.moneycontrol.transfer.budget.TransactionInBudget;
-import org.fasttrackit.moneycontrol.transfer.transaction.AddTransactionRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,27 +47,15 @@ public class BudgetService {
 
 
         BudgetResponse budgetResponse = new BudgetResponse();
-        budgetResponse.setId(buget.getId());
-
-        Set<TransactionInBudget> transactions = new HashSet<>();
-
-        for (Transaction transaction : buget.getTransactions()) {
-            TransactionInBudget transactionInBudget = new TransactionInBudget();
-            transactionInBudget.setId(transaction.getId());
-            transaction.setType(transaction.getType());
-            transactionInBudget.setAmount(transaction.getAmount());
-            transactionInBudget.setDate(transaction.getDate());
-
-            transactions.add(transactionInBudget);
-
-        }
+        budgetResponse.setId(budget.getId());
+        budgetResponse.setBalance(budget.getBalance());
+        budget.Response.setValuteName(budget.getValuteName());
 
 
-        budgetResponse.setTransactions(transactions);
-
-     return budgetResponse;
+        return budgetResponse;
 
     }
+
     public Budget updateBudget(long userId, @Valid double amount) {
         LOGGER.info("Updating Budget {} with amount {}", userId, amount);
 
@@ -86,13 +73,6 @@ public class BudgetService {
         return budgetRepository.save(budget);
     }
 
-
-
-
-    public void deleteBudget(long id) {
-        LOGGER.info("Deleting user {} ", id);
-        budgetRepository.deleteById(id);
-    }
 
 }
 

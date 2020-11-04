@@ -24,32 +24,6 @@ public class Budget {
     @NotNull
     private String valuteName;
 
-//
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-
-
-    private Set<Transaction> transactions = new HashSet<>();
-
-   // public void addTransaction(Transaction transaction) {
-        //transactions.add(transaction);
-
-       // transaction.getBudget().add(this);
-   //}
-
-//    public void removeTransaction(Transaction transaction) {
-//        transactions.remove(transaction);
-//        transaction.getBudget().remove(this);
-//    }
-
-
-
-    public Set<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(Set<Transaction> transactions) {
-        this.transactions = transactions;
-    }
 
     public long getId() {
         return id;

@@ -12,11 +12,10 @@ public class Transaction {
 
     @Id
     @GeneratedValue
-
     private Long id;
 
     @ManyToOne
-    @MapsId
+
     private User user;
 
     @NotNull
@@ -129,11 +128,6 @@ public class Transaction {
         return id == that.id;
     }
 
-//    @Override
-//    public int hashCode() {
-//
-//        return (int) (id ^ (id >>> 32));
-//    }
 
     @Override
     public String toString() {
