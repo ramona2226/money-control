@@ -1,6 +1,5 @@
 package org.fasttrackit.moneycontrol.service;
 
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.fasttrackit.moneycontrol.domain.Budget;
 import org.fasttrackit.moneycontrol.domain.Transaction;
 import org.fasttrackit.moneycontrol.domain.User;
@@ -12,15 +11,12 @@ import org.fasttrackit.moneycontrol.transfer.budget.TransactionInBudget;
 import org.fasttrackit.moneycontrol.transfer.transaction.AddTransactionRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
-
 
 
 @Service
@@ -42,19 +38,19 @@ public class BudgetService {
     }
 
     @Transactional
-    public Budget addBudget(AddTransactionRequest request) {
+    public Budget addBudget(SaveBudgetRequest request) {
 
         LOGGER.info("Adding money to my budget: {}", request);
 
-        Budget budget = budgetRepository.findById(request.getUserId())
+        Budget budget = budgetRepository.findById(request.getId())
                 .orElse(new Budget());
 
         if (budget.getUser() == null) {
-            User user = userService.getUser(request.getUserId());
+            User user = userService.getUser(request.getId());
             budget.setUser(user);
 
         }
-        Transaction transaction = transactionService.getTransaction(request.getTransactionId());
+        Transaction transaction = transactionService.getTransaction(request.getId());
 
         budget.addTransaction(transaction);
 
@@ -86,6 +82,7 @@ public class BudgetService {
             transactionInBudget.setDate(transaction.getDate());
 
             transactions.add(transactionInBudget);
+
         }
 
 
@@ -95,21 +92,28 @@ public class BudgetService {
 
     }
 
+    @Transactional
     public Budget updateBudget(long userId, AddTransactionRequest request) {
         LOGGER.info("Updating Budget {}: {} {}", userId, request);
-//        83 - ramona
 
-//        Budget budget = budgetRepository.findByUserId(userId)
-       Budget budget = budgetRepository.findById(userId)
-               .orElseThrow(() -> new ResourceNotFoundException("Budget" + userId + "does not exist"));
-       if (budget == null) {
-           budget = new Budget();
-           budget.setId(userId);
-           budget.setBalance(0);
-       }
-        double newBalance = budget.getBalance() + request.getAmount();
-        budget.setBalance(newBalance);
-//       BeanUtils.copyProperties(request, existingBudget);
+
+
+        Budget budget = budgetRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Budget" + userId + "does not exist"));
+        if (budget == null ) {
+            budget = new Budget();
+            request.setType("Payment");
+            budget.setId(userId);
+            budget.setBalance(0);
+            budget.setValuteName("EUR");
+
+        } else {
+
+
+            double newBalance = budget.getBalance() + request.getAmount();
+            budget.setBalance(newBalance);
+        }
+
 
         return budgetRepository.save(budget);
     }

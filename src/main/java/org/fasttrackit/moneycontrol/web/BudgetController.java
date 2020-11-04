@@ -28,7 +28,7 @@ public class BudgetController {
 
 
     @PostMapping
-    public ResponseEntity<Budget> createBudget(@RequestBody @Valid AddTransactionRequest request) {
+    public ResponseEntity<Budget> createBudget(@RequestBody @Valid SaveBudgetRequest request) {
         Budget budget = budgetService.addBudget(request);
 
         return ResponseEntity.ok(budget);

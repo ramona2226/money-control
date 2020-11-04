@@ -3,6 +3,7 @@ package org.fasttrackit.moneycontrol.web;
 import org.fasttrackit.moneycontrol.domain.Transaction;
 import org.fasttrackit.moneycontrol.service.TransactionService;
 import org.fasttrackit.moneycontrol.transfer.budget.SaveBudgetRequest;
+import org.fasttrackit.moneycontrol.transfer.transaction.AddTransactionRequest;
 import org.fasttrackit.moneycontrol.transfer.transaction.GetTransactionsRequest;
 import org.fasttrackit.moneycontrol.transfer.transaction.TransactionResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,12 @@ public class TransactionController {
 
 
     @PostMapping
-    public ResponseEntity<TransactionResponse> createTransaction(@RequestBody @Valid SaveBudgetRequest request) {
+    public ResponseEntity<TransactionResponse> createTransaction(@RequestBody @Valid AddTransactionRequest request) {
         TransactionResponse transaction = transactionService.createTransaction(request);
         return new ResponseEntity<>(transaction, HttpStatus.CREATED);
 
     }
-// nu ma lasa sa schimb din Entitatea Transaction in TransactionResponse. desii am adaugat in TransactionService inca o metoda get.
+
     @GetMapping("/{id}")
     public ResponseEntity<Transaction> getTransaction(@PathVariable long id) {
         Transaction transaction = transactionService.getTransaction(id);

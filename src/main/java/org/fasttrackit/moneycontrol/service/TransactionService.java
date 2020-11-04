@@ -4,6 +4,7 @@ import org.fasttrackit.moneycontrol.domain.Transaction;
 import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.TransactionRepository;
 import org.fasttrackit.moneycontrol.transfer.budget.SaveBudgetRequest;
+import org.fasttrackit.moneycontrol.transfer.transaction.AddTransactionRequest;
 import org.fasttrackit.moneycontrol.transfer.transaction.GetTransactionsRequest;
 import org.fasttrackit.moneycontrol.transfer.transaction.TransactionResponse;
 import org.slf4j.Logger;
@@ -39,9 +40,10 @@ public class TransactionService {
     }
 
     @Transactional
-    public TransactionResponse createTransaction(SaveBudgetRequest request) {
+    public TransactionResponse createTransaction(AddTransactionRequest request) {
         LOGGER.info("Creating Transaction: {}", request);
         Transaction transaction = new Transaction();
+
 
         transaction.setType(request.getType());
         transaction.setFrom(request.getFrom());

@@ -50,14 +50,6 @@ public class Budget {
         this.transactions = transactions;
     }
 
-    public  double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
     public long getId() {
         return id;
     }
@@ -74,12 +66,12 @@ public class Budget {
         this.user = user;
     }
 
-    public double getExistingAvailableBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setExistingAvailableBalance(double existingAvailableBalance) {
-        this.balance = existingAvailableBalance;
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     public String getValuteName() {
@@ -89,7 +81,6 @@ public class Budget {
     public void setValuteName(String valuteName) {
         this.valuteName = valuteName;
     }
-
 
     @Override
     public boolean equals(Object o) {

@@ -8,13 +8,14 @@ public class BudgetResponse {
 
 
     private long Id;
+
     private Set<TransactionInBudget> transactions;
 
     private Transaction balance;
 
     private String valuteName;
 
-    private String answer;
+   // private String answer;
 
     public long getId() {
         return Id;
@@ -47,14 +48,14 @@ public class BudgetResponse {
     public void setValuteName(String valuteName) {
         this.valuteName = valuteName;
     }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
+//
+//    public String getAnswer() {
+//        return answer;
+//    }
+//
+//    public void setAnswer(String answer) {
+//        this.answer = answer;
+//    }
 
     @Override
     public String toString() {
@@ -63,7 +64,7 @@ public class BudgetResponse {
                 ", transactions=" + transactions +
                 ", balance=" + balance +
                 ", valuteName='" + valuteName + '\'' +
-                ", answer='" + answer + '\'' +
+           //     ", answer='" + answer + '\'' +
                 '}';
     }
 }
