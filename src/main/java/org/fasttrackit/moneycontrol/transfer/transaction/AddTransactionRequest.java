@@ -8,12 +8,6 @@ public class AddTransactionRequest {
 
 
     @NotNull
-   private Long userId;
-
-   @NotNull
-   private Long transactionId;
-
-    @NotNull
     private String type;
 
     @NotNull
@@ -21,7 +15,8 @@ public class AddTransactionRequest {
 
     @NotNull
     private String to;
-@NotNull
+
+    @NotNull
     private double amount;
 
 
@@ -39,22 +34,6 @@ public class AddTransactionRequest {
 
     public void setUserBalance(Double userBalance) {
         this.userBalance = userBalance;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(Long transactionId) {
-        this.transactionId = transactionId;
     }
 
     public String getType() {
@@ -89,6 +68,7 @@ public class AddTransactionRequest {
         this.amount = amount;
     }
 
+
     public String getDescription() {
         return description;
     }
@@ -108,9 +88,7 @@ public class AddTransactionRequest {
     @Override
     public String toString() {
         return "AddTransactionRequest{" +
-                "userId=" + userId +
-                ", transactionId=" + transactionId +
-                ", type='" + type + '\'' +
+                "type='" + type + '\'' +
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +
                 ", amount=" + amount +

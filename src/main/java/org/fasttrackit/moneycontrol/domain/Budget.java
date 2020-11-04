@@ -1,5 +1,8 @@
 package org.fasttrackit.moneycontrol.domain;
 
+import org.fasttrackit.moneycontrol.service.BudgetService;
+import org.fasttrackit.moneycontrol.transfer.transaction.AddTransactionRequest;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -21,12 +24,10 @@ public class Budget {
     @NotNull
     private String valuteName;
 
-// am exersat metoda desii in proiectul meu nu se aplica relatia ManyToMany
-
+//
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinTable(name = "budget_transaction",
-            joinColumns = @JoinColumn(name = "budget_id"),
-            inverseJoinColumns = @JoinColumn(name = "transaction_id"))
+
+
     private Set<Transaction> transactions = new HashSet<>();
 
     public void addTransaction(Transaction transaction) {

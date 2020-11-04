@@ -38,12 +38,8 @@ public class Transaction {
     private String description;
 
     @ManyToMany(mappedBy = "transactions")
-    private Set<Budget> budget = new HashSet<>();
+     private Set<Budget> budget = new HashSet<>();
 
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
 
     public Set<Budget> getBudget() {
         return budget;
@@ -84,6 +80,10 @@ public class Transaction {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
     public double getAmount() {
@@ -129,11 +129,11 @@ public class Transaction {
         return id == that.id;
     }
 
-    @Override
-    public int hashCode() {
-
-        return (int) (id ^ (id >>> 32));
-    }
+//    @Override
+//    public int hashCode() {
+//
+//        return (int) (id ^ (id >>> 32));
+//    }
 
     @Override
     public String toString() {

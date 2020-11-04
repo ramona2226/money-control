@@ -3,7 +3,6 @@ package org.fasttrackit.moneycontrol.service;
 import org.fasttrackit.moneycontrol.domain.Transaction;
 import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.TransactionRepository;
-import org.fasttrackit.moneycontrol.transfer.budget.SaveBudgetRequest;
 import org.fasttrackit.moneycontrol.transfer.transaction.AddTransactionRequest;
 import org.fasttrackit.moneycontrol.transfer.transaction.GetTransactionsRequest;
 import org.fasttrackit.moneycontrol.transfer.transaction.TransactionResponse;
@@ -52,31 +51,6 @@ public class TransactionService {
         transaction.setDate(request.getDate());
         transaction.setDescription(request.getDescription());
 
-
-        //final double totallimitDailyPayment = 100;
-       // double overagePayment = transaction.getAmount() - totallimitDailyPayment;
-
-//
-//        if (transaction.getType() == "payment" && transaction.getAmount() > totallimitDailyPayment) {
-//            LOGGER.info(" This payment is overage the total daily payment limit with" + overagePayment + " " +
-//                    "Are you sure you want to make this payment?");
-//            LOGGER.info("Please press Y for Yes or N for No.");
-//        }
-//
-//        if (request.getAnswer() != "Y" && request.getAnswer() != "N") {
-//            LOGGER.info("Please enter a valid answer");
-//        } else if (request.getAnswer() == "Y") {
-//            LOGGER.info("Succesfull payment");
-//        } else {
-//            LOGGER.info("Cancelated transaction");
-//        }
-//
-//
-//        if (transaction.getType() == "add") {
-//            LOGGER.info("Today it`s a happy day! You recive some money.");
-//        } else if (transaction.getType() == "payment" && budget.getBalance() == 0 && transaction.getAmount() > budget.getBalance()) {
-//            LOGGER.info("Unsuccesfull transaction. You dont`t have enough money to make this payment.");
-//        }
 
         Transaction saveTransaction = transactionRepository.save(transaction);
 

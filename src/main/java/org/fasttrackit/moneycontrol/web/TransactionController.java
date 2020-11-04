@@ -2,7 +2,6 @@ package org.fasttrackit.moneycontrol.web;
 
 import org.fasttrackit.moneycontrol.domain.Transaction;
 import org.fasttrackit.moneycontrol.service.TransactionService;
-import org.fasttrackit.moneycontrol.transfer.budget.SaveBudgetRequest;
 import org.fasttrackit.moneycontrol.transfer.transaction.AddTransactionRequest;
 import org.fasttrackit.moneycontrol.transfer.transaction.GetTransactionsRequest;
 import org.fasttrackit.moneycontrol.transfer.transaction.TransactionResponse;
@@ -30,7 +29,7 @@ public class TransactionController {
     }
 
 
-    @PostMapping
+    @PostMapping("/{Id}")
     public ResponseEntity<TransactionResponse> createTransaction(@RequestBody @Valid AddTransactionRequest request) {
         TransactionResponse transaction = transactionService.createTransaction(request);
         return new ResponseEntity<>(transaction, HttpStatus.CREATED);
