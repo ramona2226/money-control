@@ -10,7 +10,6 @@ import org.fasttrackit.moneycontrol.transfer.transaction.TransactionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -51,8 +50,8 @@ public class TransactionService {
 
         transaction.setUser(user);
         transaction.setType(request.getType());
-        transaction.setFrom(request.getFrom());
-        transaction.setTo(request.getTo());
+        transaction.setSource(request.getFrom());
+        transaction.setTarget(request.getTo());
         transaction.setAmount(request.getAmount());
         transaction.setDate(request.getDate());
         transaction.setDescription(request.getDescription());
@@ -95,14 +94,10 @@ public class TransactionService {
     // Query by Example
     public Page<TransactionResponse> getTransactions(GetTransactionsRequest request, Pageable pageable) {
         LOGGER.info("Retriving transactions: {}", request);
-        Transaction exampleTransaction = new Transaction();
-        exampleTransaction.setType(request.getType());
-        exampleTransaction.setDate(request.getDate());
 
 
-// exact match
-        Example<Transaction> example = Example.of(exampleTransaction);
-        Page<Transaction> transactionsPage = transactionRepository.findAll(example, pageable);
+
+        Page<Transaction> transactionsPage = transactionRepository.findAll(pageable);
 
         List<TransactionResponse> transactionsDtos = new ArrayList<>();
 
@@ -119,8 +114,8 @@ public class TransactionService {
         TransactionResponse transactionResponse = new TransactionResponse();
         transactionResponse.setId(transaction.getId());
         transactionResponse.setType(transaction.getType());
-        transactionResponse.setFrom(transaction.getFrom());
-        transactionResponse.setTo(transaction.getTo());
+        transactionResponse.setFrom(transaction.getSource());
+        transactionResponse.setFrom(transaction.getTarget());
         transactionResponse.setAmount(transaction.getAmount());
         transactionResponse.setDate(transaction.getDate());
         transactionResponse.setDescription(transaction.getDescription());

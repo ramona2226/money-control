@@ -1,10 +1,12 @@
 package org.fasttrackit.moneycontrol.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Objects;
 
 @Entity
 public class Transaction {
@@ -12,7 +14,7 @@ public class Transaction {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     @ManyToOne
 
@@ -22,10 +24,10 @@ public class Transaction {
     private String type;
 
     @NotNull
-    private String from;
+    private String source;
 
     @NotNull
-    private String to;
+    private String target;
 
     @NotNull
     private Double amount;
@@ -36,57 +38,12 @@ public class Transaction {
     @NotNull
     private String description;
 
-    @ManyToMany(mappedBy = "transactions")
-    private Set<Budget> budget = new HashSet<>();
-
-
-    public Set<Budget> getBudget() {
-        return budget;
-    }
-
-    public void setBudget(Set<Budget> budget) {
-        this.budget = budget;
-    }
-
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    public double getAmount() {
-        return amount;
     }
 
     public User getUser() {
@@ -105,7 +62,27 @@ public class Transaction {
         this.type = type;
     }
 
-    public void setAmount(double amount) {
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
@@ -117,30 +94,37 @@ public class Transaction {
         this.date = date;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Transaction that = (Transaction) o;
-
         return id == that.id;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     @Override
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
-                ", user=" + user +
                 ", type='" + type + '\'' +
-                ", from='" + from + '\'' +
-                ", to='" + to + '\'' +
+                ", source='" + source + '\'' +
+                ", target='" + target + '\'' +
                 ", amount=" + amount +
                 ", date=" + date +
                 ", description='" + description + '\'' +
                 '}';
     }
-
 }
