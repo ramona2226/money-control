@@ -8,10 +8,10 @@ public class AddTransactionRequest {
 
 
     @NotNull
-    private Long userId;
+   private Long userId;
 
-    @NotNull
-    private Long transactionId;
+   @NotNull
+   private Long transactionId;
 
     @NotNull
     private String type;

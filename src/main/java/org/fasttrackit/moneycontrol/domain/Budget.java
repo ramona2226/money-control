@@ -21,10 +21,7 @@ public class Budget {
     @NotNull
     private String valuteName;
 
-// un budget poate sa aiba mai multe transactii
-//aceasi transactie poate sa existe in mai multe bugete;
-// DE EX un abonament la Netflix poate sa aiba aceasi transactie de la mai multi clienti.
-
+// am exersat metoda desii in proiectul meu nu se aplica relatia ManyToMany
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "budget_transaction",

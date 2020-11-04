@@ -1,5 +1,6 @@
 package org.fasttrackit.moneycontrol.service;
 
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.fasttrackit.moneycontrol.domain.Budget;
 import org.fasttrackit.moneycontrol.domain.Transaction;
 import org.fasttrackit.moneycontrol.domain.User;
@@ -31,7 +32,6 @@ public class BudgetService {
     public final BudgetRepository budgetRepository;
     public final UserService userService;
     public final TransactionService transactionService;
-
 
 
     public BudgetService(BudgetRepository budgetRepository, UserService userService, TransactionService transactionService) {
@@ -95,26 +95,29 @@ public class BudgetService {
 
     }
 
-    public Budget updateBudget(long userId, Transaction amount, SaveBudgetRequest request) {
-        LOGGER.info("Updating budget {}:  {} {}", userId, amount, request);
+    public Budget updateBudget(long userId, AddTransactionRequest request) {
+        LOGGER.info("Updating Budget {}: {} {}", userId, request);
+//        83 - ramona
 
-        Budget buget = budgetRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Budget" + userId + "does not exist"));
+//        Budget budget = budgetRepository.findByUserId(userId)
+       Budget budget = budgetRepository.findById(userId)
+               .orElseThrow(() -> new ResourceNotFoundException("Budget" + userId + "does not exist"));
+       if (budget == null) {
+           budget = new Budget();
+           budget.setId(userId);
+           budget.setBalance(0);
+       }
+        double newBalance = budget.getBalance() + request.getAmount();
+        budget.setBalance(newBalance);
+//       BeanUtils.copyProperties(request, existingBudget);
 
+        return budgetRepository.save(budget);
+    }
 
-        BudgetResponse budgetResponse = new BudgetResponse();
-        budgetResponse.setId(userId);
-        budgetResponse.setBalance(amount);
-
-    budgetResponse.setBalance(amount);
-
-            return updateBudget(userId,amount,request);
-        }
-
-        public void deleteBudget(long id) {
+    public void deleteBudget(long id) {
         LOGGER.info("Deleting user {} ", id);
         budgetRepository.deleteById(id);
     }
 
-
 }
+

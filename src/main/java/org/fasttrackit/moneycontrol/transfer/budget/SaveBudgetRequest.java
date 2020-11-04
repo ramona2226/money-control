@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class SaveBudgetRequest {
 
-    private long id;
+    private long userId;
 
     private String type;
 
@@ -31,11 +31,11 @@ public class SaveBudgetRequest {
     }
 
     public long getId() {
-        return id;
+        return userId;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.userId = id;
     }
 
     public String getType() {
@@ -89,7 +89,7 @@ public class SaveBudgetRequest {
     @Override
     public String toString() {
         return "TransactionResponse{" +
-                "id=" + id +
+                "id=" + userId +
                 ", type='" + type + '\'' +
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +
