@@ -64,7 +64,9 @@ public class BudgetService {
         }
 
         double newBalance = budget.getBalance() + amount;
+        budget.setBalance(newBalance);
         budget.setValuteName("RON");
+
 
 
         return budgetRepository.save(budget);
