@@ -42,6 +42,12 @@ public class TransactionController {
 
     }
 
+    @GetMapping("/{userId}")
+    public TransactionResponse getAllUserTransactions(@PathVariable long userId) {
+        TransactionResponse allUserTransactions = transactionService.getAllUserTransactions(userId);
+        return allUserTransactions;
+    }
+
 
     @GetMapping
     public ResponseEntity<Page<TransactionResponse>> getTransactions(GetTransactionsRequest request, Pageable pageable) {

@@ -72,7 +72,7 @@ public class TransactionService {
 
 
         Transaction transaction = transactionRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Budget" + id + "does not exist"));
+                .orElseThrow(() -> new ResourceNotFoundException("Budget" + id + "does not exist."));
         return transaction;
     }
 
@@ -81,6 +81,14 @@ public class TransactionService {
 
         return mapTransactionResponse(transaction);
 
+
+    }
+    public TransactionResponse getAllUserTransactions(long userId) {
+
+        LOGGER.info("My transactions{}", userId);
+
+        Transaction allMyTransactions = getTransaction(userId);
+        return mapTransactionResponse(allMyTransactions);
 
     }
 
@@ -119,7 +127,6 @@ public class TransactionService {
         transactionResponse.setAmount(transaction.getAmount());
         transactionResponse.setDate(transaction.getDate());
         transactionResponse.setDescription(transaction.getDescription());
-
 
         return transactionResponse;
     }

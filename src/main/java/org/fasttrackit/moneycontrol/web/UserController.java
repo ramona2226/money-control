@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+
 @CrossOrigin
 @RestController
 @RequestMapping("/users")
@@ -31,9 +32,11 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody @Valid SaveUserRequest request) {
         User user = userService.createUser(request);
 
+
         return new ResponseEntity<>(user, HttpStatus.CREATED);
 
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable long id) {
@@ -41,13 +44,19 @@ public class UserController {
 
         return ResponseEntity.ok(user);
     }
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<User>getUserByFirstNameAndLastName(String firstName, String lastName) {
+        User userByFirstAndLastName = userService.getUserByFirstAndLastName(firstName, lastName);
 
-    @GetMapping
-    public ResponseEntity<Page<User>> getUsers(GetUserRequest request, Pageable pageable) {
-
-        Page<User> users = userService.getUsers(request, pageable);
-        return ResponseEntity.ok(users);
+        return new ResponseEntity<>(userByFirstAndLastName, HttpStatus.OK);
     }
+
+//    @GetMapping
+//    public ResponseEntity<Page<User>> getUsers(GetUserRequest request, Pageable pageable) {
+//
+//        Page<User> users = userService.getUsers(request, pageable);
+//        return ResponseEntity.ok(users);
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable long id, @RequestBody @Valid SaveUserRequest request) {

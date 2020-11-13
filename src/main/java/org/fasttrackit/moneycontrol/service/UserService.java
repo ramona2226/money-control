@@ -14,8 +14,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
+
+
 @Service
 public class UserService {
+
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
@@ -30,12 +33,14 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+
     public User createUser(SaveUserRequest request) {
         LOGGER.info("Creating User: {}", request);
 
         User user = new User();
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
+
 
         return userRepository.save(user);
 
@@ -51,6 +56,14 @@ public class UserService {
                 //Lambda expression
                 .orElseThrow(() -> new ResourceNotFoundException(("User " + id + "does not exist")));
     }
+
+    public User getUserByFirstAndLastName(String firstName, String lastName){
+        User allByFirstNameAndSecondName = userRepository.findAllByFirstNameAndLastName(firstName, lastName);
+
+        return allByFirstNameAndSecondName;
+    }
+
+
 
 
     public Page<User> getUsers(GetUserRequest request, Pageable pageable) {
