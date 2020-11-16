@@ -5,30 +5,30 @@ import javax.persistence.UniqueConstraint;
 public class GetUserRequest {
 
 
-    private String partialFirstName;
-    private String partialLastName;
+    private String firstName;
+    private String lastName;
 
-    public String getPartialFirstName() {
-        return partialFirstName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setPartialFirstName(String partialFirstName) {
-        this.partialFirstName = partialFirstName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getPartialLastName() {
-        return partialLastName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setPartialLastName(String partialLastName) {
-        this.partialLastName = partialLastName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @Override
     public String toString() {
         return "GetUsersRequest{" +
-                "partialFirstName='" + partialFirstName + '\'' +
-                ", partialLastName='" + partialLastName + '\'' +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 '}';
     }
 }

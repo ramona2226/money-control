@@ -1,14 +1,16 @@
 package org.fasttrackit.moneycontrol.transfer.user;
 
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class SaveUserRequest {
 
-    @Pattern(regexp="^[A-Za-z]*$", message = "Invalid user name")
+    @Pattern(regexp = "^[A-Za-z]*$", message = "Invalid user name")
     @NotNull
+
     private String firstName;
-    @Pattern(regexp="^[A-Za-z]*$", message = "Invalid user name")
+    @Pattern(regexp = "^[A-Za-z]*$", message = "Invalid user name")
     @NotNull
     private String lastName;
 

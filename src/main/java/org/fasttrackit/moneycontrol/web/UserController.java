@@ -44,19 +44,24 @@ public class UserController {
 
         return ResponseEntity.ok(user);
     }
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<User>getUserByFirstNameAndLastName(String firstName, String lastName) {
-        User userByFirstAndLastName = userService.getUserByFirstAndLastName(firstName, lastName);
 
-        return new ResponseEntity<>(userByFirstAndLastName, HttpStatus.OK);
-    }
-
-//    @GetMapping
-//    public ResponseEntity<Page<User>> getUsers(GetUserRequest request, Pageable pageable) {
+//    @GetMapping("/{userName}")
+//    public ResponseEntity<User>getUserByFirstNameAndLastName(@PathVariable String userName, String firstName, String lastName ) {
+//        User userByFirstAndLastName = userService.getUserByFirstAndLastName(firstName, lastName);
 //
-//        Page<User> users = userService.getUsers(request, pageable);
-//        return ResponseEntity.ok(users);
+//        return new ResponseEntity<>(userByFirstAndLastName, HttpStatus.OK);
 //    }
+
+    @GetMapping
+    public ResponseEntity<Page<User>> getUsers(GetUserRequest request, Pageable pageable) {
+        Page<User> users = userService.getUsers(request, pageable);
+        return ResponseEntity.ok(users);
+    }
+    @GetMapping("/byName")
+    public ResponseEntity<Page<User>> getUsersByName(GetUserRequest request, Pageable pageable) {
+        Page<User> users = userService.getUsersByName(request, pageable);
+        return ResponseEntity.ok(users);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable long id, @RequestBody @Valid SaveUserRequest request) {

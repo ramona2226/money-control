@@ -21,11 +21,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //JPQL JAVA PERSISTANCE QUERY LEVEL
     @Query(value = "SELECT user FROM User user" +
             " Where (:partialFirstName IS NULL OR user.firstName LIKE %:partialFirstName%) " +
-            " AND (:partialLastName IS NULL OR user.lastName LIKE %:partialFirstName%)")
+            " AND (:partialLastName IS NULL OR user.lastName LIKE %:partialLastName%)")
     Page<User> findByOptionalCriteria(String partialFirstName, String partialLastName, Pageable pageable);
 
 
-    User findAllByFirstNameAndLastName( String firstName, String lastName);
+
+    @Query(value = "SELECT user FROM User user" +
+            " Where user.firstName=:firstName " +
+            " AND user.lastName=:lastName")
+    Page<User> findAllByFirstNameAndLastName(String firstName, String lastName, Pageable pageable);
+
+
 
 }
 

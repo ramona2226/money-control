@@ -1,16 +1,14 @@
 package org.fasttrackit.moneycontrol.domain;
 
 
-import org.hibernate.validator.constraints.UniqueElements;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(name= "firstName_lastName_unique_key",
+        columnNames = {"firstName", "lastName"})})
 public class User {
+
     @Id
     @GeneratedValue
     private long id;

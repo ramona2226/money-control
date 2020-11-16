@@ -40,6 +40,8 @@ public class UserService {
         User user = new User();
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
+//        Budget budget = new Budget(0, "EUR");
+//        user.setBudget(budget);
 
 
         return userRepository.save(user);
@@ -57,21 +59,19 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException(("User " + id + "does not exist")));
     }
 
-    public User getUserByFirstAndLastName(String firstName, String lastName){
-        User allByFirstNameAndSecondName = userRepository.findAllByFirstNameAndLastName(firstName, lastName);
-
-        return allByFirstNameAndSecondName;
-    }
-
-
-
-
     public Page<User> getUsers(GetUserRequest request, Pageable pageable) {
         LOGGER.info("Retriving  users");
 
 
         return userRepository.findByOptionalCriteria(
-                request.getPartialFirstName(), request.getPartialLastName(), pageable);
+                request.getFirstName(), request.getLastName(), pageable);
+    }
+    public Page<User> getUsersByName(GetUserRequest request, Pageable pageable) {
+        LOGGER.info("Retriving  users");
+
+
+        return userRepository.findAllByFirstNameAndLastName(
+                request.getFirstName(), request.getLastName(), pageable);
     }
 
     public User updateUser(long id, SaveUserRequest request) {
