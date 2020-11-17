@@ -15,8 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
-
-
 @Service
 public class UserService {
 
@@ -26,6 +24,7 @@ public class UserService {
 
     //Inversion of Control (IoC)
     private final UserRepository userRepository;
+    private Budget budget;
 
 
     //Dependency injection
@@ -38,11 +37,18 @@ public class UserService {
     public User createUser(SaveUserRequest request) {
         LOGGER.info("Creating User: {}", request);
 
+
+
         User user = new User();
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
-       Budget budget = new Budget();
-       user.setBudget(0, "EUR");
+        Budget budget = new Budget();
+        budget.setValuteName("EUR");
+        budget.setBalance(0);
+        user.setBudget(budget);
+
+
+
 
         return userRepository.save(user);
 
@@ -66,6 +72,7 @@ public class UserService {
         return userRepository.findByOptionalCriteria(
                 request.getFirstName(), request.getLastName(), pageable);
     }
+
     public Page<User> getUsersByName(GetUserRequest request, Pageable pageable) {
         LOGGER.info("Retriving  users");
 

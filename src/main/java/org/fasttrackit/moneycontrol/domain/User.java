@@ -5,8 +5,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
+//de fixat problema aici
 @Table(uniqueConstraints = {@UniqueConstraint(name= "firstName_lastName_unique_key",
-        columnNames = {"firstName", "lastName"})})
+        columnNames = {"first_name", "last_name"})})
 public class User {
 
     @Id
@@ -20,6 +21,8 @@ public class User {
 
     @NotNull
     private String lastName;
+
+
 
     public long getId() {
         return id;
@@ -42,6 +45,10 @@ public class User {
     }
 
 
+    public void setBudget(double balance, String valuteName) {
+    }
+
+
     @Override
     public String toString() {
         return "User{" +
@@ -51,4 +58,7 @@ public class User {
                 '}';
     }
 
+
+    public void setBudget(Budget budget) {
+    }
 }

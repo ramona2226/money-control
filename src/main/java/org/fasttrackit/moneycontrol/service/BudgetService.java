@@ -39,7 +39,7 @@ public class BudgetService {
 
         // lambda expression
         Budget budget = budgetRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Budget" + userId + "does not exist"));
+                 .orElseThrow(() -> new ResourceNotFoundException("Budget" + userId + "does not exist"));
 
 
         BudgetResponse budgetResponse = new BudgetResponse();

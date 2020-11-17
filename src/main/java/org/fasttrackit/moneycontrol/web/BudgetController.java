@@ -25,6 +25,7 @@ public class BudgetController {
     public ResponseEntity<BudgetResponse> getBudget(@PathVariable long userId) {
         BudgetResponse budget = budgetService.getBudget(userId);
 
+
         return ResponseEntity.ok(budget);
     }
 }
