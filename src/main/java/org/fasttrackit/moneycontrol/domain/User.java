@@ -17,6 +17,7 @@ public class User {
     @NotNull
     private String firstName;
 
+
     @NotNull
     private String lastName;
 
@@ -49,4 +50,5 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
+
 }

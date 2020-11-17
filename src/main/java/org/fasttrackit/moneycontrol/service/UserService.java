@@ -1,5 +1,6 @@
 package org.fasttrackit.moneycontrol.service;
 
+import org.fasttrackit.moneycontrol.domain.Budget;
 import org.fasttrackit.moneycontrol.domain.User;
 import org.fasttrackit.moneycontrol.exception.ResourceNotFoundException;
 import org.fasttrackit.moneycontrol.persistance.UserRepository;
@@ -40,9 +41,8 @@ public class UserService {
         User user = new User();
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
-//        Budget budget = new Budget(0, "EUR");
-//        user.setBudget(budget);
-
+       Budget budget = new Budget();
+       user.setBudget(0, "EUR");
 
         return userRepository.save(user);
 

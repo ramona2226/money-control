@@ -1,6 +1,5 @@
 package org.fasttrackit.moneycontrol.transfer.user;
 
-import javax.persistence.UniqueConstraint;
 
 public class GetUserRequest {
 
