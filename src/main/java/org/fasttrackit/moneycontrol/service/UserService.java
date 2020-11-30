@@ -42,10 +42,6 @@ public class UserService {
         User user = new User();
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
-        Budget budget = new Budget();
-        budget.setValuteName("EUR");
-        budget.setBalance(0);
-        user.setBudget(budget);
 
 
 

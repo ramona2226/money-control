@@ -4,10 +4,13 @@ package org.fasttrackit.moneycontrol.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+
 @Entity
-//de fixat problema aici
-@Table(uniqueConstraints = {@UniqueConstraint(name= "firstName_lastName_unique_key",
-        columnNames = {"first_name", "last_name"})})
+//@Table(uniqueConstraints = {@UniqueConstraint(name= "firstName_lastName_unique_key",
+//@Column (name = "first_name"), @Column(name ="last_name"))});
+
+
+
 public class User {
 
     @Id
@@ -45,8 +48,8 @@ public class User {
     }
 
 
-    public void setBudget(double balance, String valuteName) {
-    }
+   // public void setBudget(double balance, String valuteName) {
+  //  }
 
 
     @Override
@@ -59,6 +62,4 @@ public class User {
     }
 
 
-    public void setBudget(Budget budget) {
-    }
 }

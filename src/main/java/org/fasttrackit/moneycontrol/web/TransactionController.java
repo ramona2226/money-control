@@ -42,10 +42,12 @@ public class TransactionController {
 
     }
 
-    @GetMapping("/{userId}")
-    public TransactionResponse getAllUserTransactions(@PathVariable long userId) {
-        TransactionResponse allUserTransactions = transactionService.getAllUserTransactions(userId);
-        return allUserTransactions;
+    @GetMapping("/forUser/{userId}")
+    public ResponseEntity<Page<TransactionResponse>> getAllUserTransactions(GetTransactionsRequest request, Pageable pageable, @PathVariable long userId) {
+//        Page<TransactionResponse> allUserTransactions = transactionService.getAllUserTransactions(userId);
+//        return new ResponseEntity<>(allUserTransactions, HttpStatus.OK);
+        Page<TransactionResponse> transactions = transactionService.getAllUserTransactions(request, pageable, userId);
+        return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
 
 

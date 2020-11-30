@@ -45,12 +45,6 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-//    @GetMapping("/{userName}")
-//    public ResponseEntity<User>getUserByFirstNameAndLastName(@PathVariable String userName, String firstName, String lastName ) {
-//        User userByFirstAndLastName = userService.getUserByFirstAndLastName(firstName, lastName);
-//
-//        return new ResponseEntity<>(userByFirstAndLastName, HttpStatus.OK);
-//    }
 
     @GetMapping
     public ResponseEntity<Page<User>> getUsers(GetUserRequest request, Pageable pageable) {

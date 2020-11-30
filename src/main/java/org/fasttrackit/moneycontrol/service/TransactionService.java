@@ -83,19 +83,25 @@ public class TransactionService {
 
 
     }
-    public TransactionResponse getAllUserTransactions(long userId) {
+    public Page<TransactionResponse> getAllUserTransactions(GetTransactionsRequest request, Pageable pageable, long userId) {
 
-        LOGGER.info("My transactions{}", userId);
+        LOGGER.info("transactions for user with userId: {}", userId);
 
-        Transaction allMyTransactions = getTransaction(userId);
-        return mapTransactionResponse(allMyTransactions);
+        Page<Transaction> transactionsPage = transactionRepository.findAllByuserId(userId, pageable);
+
+        List<TransactionResponse> transactionsDtos = new ArrayList<>();
+        for (Transaction transaction : transactionsPage.getContent()) {
+            TransactionResponse transactionResponse = mapTransactionResponse(transaction);
+            transactionsDtos.add(transactionResponse);
+        }
+
+        return new PageImpl<>(transactionsDtos, pageable, transactionsPage.getTotalElements());
 
     }
 
 
     public void deleteTransaction(long id) {
         LOGGER.info("Delete transaction{}", id);
-
         transactionRepository.deleteById(id);
     }
 
@@ -121,9 +127,10 @@ public class TransactionService {
     private TransactionResponse mapTransactionResponse(Transaction transaction) {
         TransactionResponse transactionResponse = new TransactionResponse();
         transactionResponse.setId(transaction.getId());
+        transactionResponse.setUserId(transaction.getUser().getId());
         transactionResponse.setType(transaction.getType());
         transactionResponse.setFrom(transaction.getSource());
-        transactionResponse.setFrom(transaction.getTarget());
+        transactionResponse.setTo(transaction.getTarget());
         transactionResponse.setAmount(transaction.getAmount());
         transactionResponse.setDate(transaction.getDate());
         transactionResponse.setDescription(transaction.getDescription());
