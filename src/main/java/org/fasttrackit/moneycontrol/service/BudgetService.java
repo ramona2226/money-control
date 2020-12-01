@@ -52,7 +52,7 @@ public class BudgetService {
 
     }
 
-    public Budget updateBudget(long userId, @Valid double amount) {
+    public void updateBudget(long userId, @Valid double amount) {
         LOGGER.info("Updating Budget {} with amount {}", userId, amount);
 
         Budget budget = budgetRepository.findById(userId)
@@ -68,8 +68,7 @@ public class BudgetService {
         budget.setValuteName("EUR");
 
 
-
-        return budgetRepository.save(budget);
+        budgetRepository.save(budget);
     }
 
 

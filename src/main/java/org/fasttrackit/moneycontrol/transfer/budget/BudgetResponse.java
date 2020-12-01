@@ -1,8 +1,5 @@
 package org.fasttrackit.moneycontrol.transfer.budget;
 
-import org.fasttrackit.moneycontrol.domain.Transaction;
-
-import java.util.Set;
 
 public class BudgetResponse {
 

@@ -24,7 +24,7 @@ public class UserService {
 
     //Inversion of Control (IoC)
     private final UserRepository userRepository;
-    private Budget budget;
+
 
 
     //Dependency injection

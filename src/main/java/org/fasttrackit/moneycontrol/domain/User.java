@@ -6,8 +6,8 @@ import javax.validation.constraints.NotNull;
 
 
 @Entity
-//@Table(uniqueConstraints = {@UniqueConstraint(name= "firstName_lastName_unique_key",
-//@Column (name = "first_name"), @Column(name ="last_name"))});
+@Table(uniqueConstraints = {@UniqueConstraint(name= "firstName_lastName_unique_key",
+        columnNames = {"first_name", "last_name"})})
 
 
 
@@ -19,10 +19,12 @@ public class User {
 
 
     @NotNull
+    @Column(name = "first_name")
     private String firstName;
 
 
     @NotNull
+    @Column(name = "last_name")
     private String lastName;
 
 
@@ -48,8 +50,6 @@ public class User {
     }
 
 
-   // public void setBudget(double balance, String valuteName) {
-  //  }
 
 
     @Override

@@ -1,7 +1,6 @@
 package org.fasttrackit.moneycontrol.persistance;
 
 import org.fasttrackit.moneycontrol.domain.User;
-import org.fasttrackit.moneycontrol.transfer.user.GetUserRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
