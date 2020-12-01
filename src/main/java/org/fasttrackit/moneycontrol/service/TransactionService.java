@@ -71,18 +71,10 @@ public class TransactionService {
         LOGGER.info("Retrieving transaction{}", id);
 
 
-        Transaction transaction = transactionRepository.findById(id)
+        return transactionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Budget" + id + "does not exist."));
-        return transaction;
     }
 
-    public TransactionResponse getTransactionResponse(long id) {
-        Transaction transaction = getTransaction(id);
-
-        return mapTransactionResponse(transaction);
-
-
-    }
     public Page<TransactionResponse> getAllUserTransactions(GetTransactionsRequest request, Pageable pageable, long userId) {
 
         LOGGER.info("transactions for user with userId: {}", userId);
